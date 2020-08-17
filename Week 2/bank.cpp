@@ -10,6 +10,14 @@
 
 using namespace std;
 
+account& compareAccRef(account& acc1, account& acc2) {
+    if(acc1.balance() < acc2.balance()){
+        return acc2;
+    } else {
+        return acc1;
+    }
+}
+
 int main()
 {
     cout << "Creating first account with initial amount 10" << endl;
@@ -51,7 +59,7 @@ int main()
     cout << "Balance of account_1" << endl;
     cout << my_copy.balance() << endl;
     cout << "Balance of my_copy" << endl;
-    my_copy.deposit(500);
+    my_copy.deposit(750);
     cout << "New balance of my_copy" << endl;
     cout << my_copy.balance() << endl;
     cout << "New Balance of account_1" << endl;
@@ -67,6 +75,10 @@ int main()
     cout << my_copy2.balance() << endl;
     cout << "New Balance of account_1" << endl;
     cout << account_1.balance() << endl << endl;
+
+    cout << "Compare function" << endl;
+    account bigAccount = compareAccRef(my_copy, account_1);
+    cout << bigAccount.balance() << endl << endl;
 
     cout << "Shits and gigs Q6" << endl;
     cout << ptr << endl;
