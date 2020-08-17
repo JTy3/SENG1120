@@ -18,13 +18,25 @@ account& compareAccRef(account& acc1, account& acc2) {
     }
 }
 
+account* compareAccPtr(account* acc1, account* acc2) {
+    if(acc1->balance() < acc2->balance()){
+        return acc2;
+    } else {
+        return acc1;
+    }
+}
+
 int main()
 {
     cout << "Creating first account with initial amount 10" << endl;
 
     account account_1;
+
     account* ptr = new account();
     ptr->deposit(10);
+
+    account* ptr2 = new account();
+    ptr->deposit(25);
     
 	if (ptr->has_funds())
     {
@@ -76,9 +88,13 @@ int main()
     cout << "New Balance of account_1" << endl;
     cout << account_1.balance() << endl << endl;
 
-    cout << "Compare function" << endl;
+    cout << "Compare function Reference" << endl;
     account bigAccount = compareAccRef(my_copy, account_1);
     cout << bigAccount.balance() << endl << endl;
+
+    cout << "Compare function Pointer" << endl;
+    account* bigAccountPtr = compareAccPtr(ptr, ptr2);
+    cout << bigAccountPtr->balance() << endl << endl;
 
     cout << "Shits and gigs Q6" << endl;
     cout << ptr << endl;
