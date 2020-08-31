@@ -28,6 +28,7 @@ class LinkedList {
         Node* getNext() const;
         Node* getPrev() const;
         Node* getCurrent() const;
+        int length();
     private:
         Node* head;
         Node* tail;
