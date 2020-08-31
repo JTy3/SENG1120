@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-c -Wall -std=c++98 
 LDFLAGS=
-SOURCES=point.cpp demo.cpp
+SOURCES=Node.cpp account.cpp main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=point
+EXECUTABLE=test
 
 all: $(SOURCES) $(EXECUTABLE)
 	
