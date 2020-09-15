@@ -193,14 +193,14 @@ void LinkedList::remove(const value_type &word)
 {
     // Reset current to head for this counter
     setCurrent(head);
-
+    value_type null = "";
     // Continue this loop while the current node pointer does not equal the tail node pointer
     while (current != tail)
     {
         // Check if the current node's word equals the word we are deleting
         if (current->getData() == word)
         {
-            cout << word << endl;
+            current->setData(null);
             setCurrent(current->getNext());
         }
         else
@@ -223,28 +223,21 @@ void LinkedList::remove(const value_type &word)
 // Returns full concatenated message store in the linked list
 void LinkedList::sort()
 {
+    value_type lowest;
+    value_type temp;
     // Reset current to head for this counter
     setCurrent(head);
-
     // Continue this loop while the current node pointer does not equal the tail node pointer
     while (current != tail)
     {
-        if ( current->getData() > current->getNext()->getData() ) {
-            // Change nodes around this ones position
-            current->getPrevious()->setNext(current->getNext());    // This node -1 next = this node +1
-            current->getNext()->setPrevious(current->getPrevious());    // This node +1 prev = this node -1
-            current->getNext()->setNext(current);   // This node +1 next = this node 
-            current->getNext()->getNext()->setPrevious(current);    // This node +2 prev = this node 
-
-            // Change this nodes position
-            // Next = +2
-            // Prev = +1
-            current->setNext(current->getNext()->getNext());
-            current->setPrevious(current->getNext());
-
-            // Set new node
-            setCurrent(current->getPrevious());
-        } 
+        while (current->getData() > current->getNext()->getData())
+        {
+            temp = current->getData();
+            cout << temp << endl;
+            current->setData(current->getNext()->getData());
+            current->getNext()->setData(temp);
+        }
+        setCurrent(current->getNext());
     }
 
     updateMessage();
