@@ -92,15 +92,37 @@ void LinkedList::setCurrent(Node* currentNode)
 
 void LinkedList::add(const value_type& message) 
 {
-    stringstream s(message);
+    // Using stringstream to separate the words in the message added
+    stringstream messageReceived(message);
+
+    // Declaring a variable for each word with value_type so it can be easily used to create a new node
     value_type word;
 
-    while (s >> word)
-        current = new Node(word);
+    // While looping through the message received
+    while (messageReceived >> word) {
+
+        // Printing message (temporary debugging)
+        cout << word + " ";
+
+        // Assigning current to a new Node containing the current word in the loop
+        setCurrent(new Node(word));
+
+        // Checking if the head is null (i.e: Is this the first node in the linked list?)
         if (head == NULL) {
-            head == current;
+            // If above is true, head of linked list is the current node
+            setHead(current);
         }
-        tail == current;
+
+        // In this instance, the tail will always be the current word because the loop will finish on the final word (i.e: final node)
+        setTail(current);
+    }
+
+    // Some debug statements to make sure the linked list is roughly working
+    cout << endl << "Head: " << endl;
+    cout << head->getData() << endl;
+    cout << "Tail: " << endl;
+    cout << tail->getData() << endl;
+
 }
 
 void LinkedList::remove(const value_type& word)
@@ -110,7 +132,7 @@ void LinkedList::remove(const value_type& word)
 
 void LinkedList::count(const value_type& word)
 {
-
+    
 }
 
 void LinkedList::sort()

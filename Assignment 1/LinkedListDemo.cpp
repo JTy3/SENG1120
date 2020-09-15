@@ -13,8 +13,7 @@ using namespace std;
 int main()
 {
     LinkedList List;
-    List.add("Hello Everyone");
-	cout << "Initialised LinkedList:" << endl;
-    
+    cout << "Print Sentence added to list" << endl;
+    List.add("It caught him off guard that space smelled of seared steak");
 	return 0;
 }
