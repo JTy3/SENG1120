@@ -14,6 +14,8 @@ int main()
 {
     LinkedList List;
     cout << "Print Sentence added to list" << endl;
-    List.add("It caught him off guard that space smelled of seared steak");
+    List.add("It caught him off guard that space steak smelled of seared steak");
+    cout << "Let's count how many times the word 'steak' is in the above sentence" << endl;
+    cout << List.count("steak") << endl;
 	return 0;
 }

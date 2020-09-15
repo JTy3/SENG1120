@@ -35,7 +35,7 @@ class LinkedList {
         // Remove all nodes that contain a certain input in the linked list - parsing as a reference allocation for data persistence
         void remove(const value_type& inputData);
         // Count all occurences of a word in the linked list - parsing as a reference allocation for data persistence
-        void count(const value_type& inputData);
+        int count(const value_type& inputData);
         // Sort the list into alphabetical order
         void sort();
 

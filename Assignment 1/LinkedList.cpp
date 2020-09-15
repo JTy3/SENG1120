@@ -10,7 +10,8 @@
 // -------------------------------------------------------------------
 
 // Initialised with no data (we add data to Linked List with the add() mutator function)
-LinkedList::LinkedList ()   {
+LinkedList::LinkedList()
+{
     head = NULL;
     tail = NULL;
     current = NULL;
@@ -21,7 +22,8 @@ LinkedList::LinkedList ()   {
 // Automatically invoked upon out of scope or deleted instance of LinkedList object
 // -------------------------------------------------------------------
 
-LinkedList::~LinkedList ()   {
+LinkedList::~LinkedList()
+{
     // Similar to how my destructor is written for Node I am just setting all pointers to NULL here so the destructor is holding a value
     head = NULL;
     tail = NULL;
@@ -35,12 +37,12 @@ LinkedList::~LinkedList ()   {
 // getHead() Initialisers
 // Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
 // Non-const
-Node* LinkedList::getHead ()
+Node *LinkedList::getHead()
 {
     return head;
 }
 // Const
-const Node* LinkedList::getHead () const
+const Node *LinkedList::getHead() const
 {
     return head;
 }
@@ -48,12 +50,12 @@ const Node* LinkedList::getHead () const
 // getTail() Initialisers
 // Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
 // Non-const
-Node* LinkedList::getTail ()
+Node *LinkedList::getTail()
 {
     return tail;
 }
 // Const
-const Node* LinkedList::getTail () const
+const Node *LinkedList::getTail() const
 {
     return tail;
 }
@@ -61,12 +63,12 @@ const Node* LinkedList::getTail () const
 // getCurrent() Initialisers
 // Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
 // Non-const
-Node* LinkedList::getCurrent ()
+Node *LinkedList::getCurrent()
 {
     return current;
 }
 // Const
-const Node* LinkedList::getCurrent () const
+const Node *LinkedList::getCurrent() const
 {
     return current;
 }
@@ -75,22 +77,22 @@ const Node* LinkedList::getCurrent () const
 // <-- MUTATOR IMPLEMENTATION METHODS -->
 // -------------------------------------------------------------------
 
-void LinkedList::setHead(Node* headNode)    
+void LinkedList::setHead(Node *headNode)
 {
     head = headNode;
 }
 
-void LinkedList::setTail(Node* tailNode)    
+void LinkedList::setTail(Node *tailNode)
 {
     tail = tailNode;
 }
 
-void LinkedList::setCurrent(Node* currentNode)    
+void LinkedList::setCurrent(Node *currentNode)
 {
     current = currentNode;
 }
 
-void LinkedList::add(const value_type& message) 
+void LinkedList::add(const value_type &message)
 {
     // Using stringstream to separate the words in the message added
     stringstream messageReceived(message);
@@ -99,43 +101,75 @@ void LinkedList::add(const value_type& message)
     value_type word;
 
     // While looping through the message received
-    while (messageReceived >> word) {
+    while (messageReceived >> word)
+    {
 
         // Printing message (temporary debugging)
         cout << word + " ";
 
-        // Assigning current to a new Node containing the current word in the loop
-        setCurrent(new Node(word));
-
-        // Checking if the head is null (i.e: Is this the first node in the linked list?)
-        if (head == NULL) {
-            // If above is true, head of linked list is the current node
+        // Check if the head is NULL
+        if (head == NULL)
+        {
+            // If head is NULL set current to the new node with the current word
+            setCurrent(new Node(word));
+            // And set head to current
             setHead(current);
         }
-
+        else
+        {
+            // If head is NOT NULL set the next node (for the current node) to the new node with the current word
+            current->setNext(new Node(word));
+            // AND ONLY THEN do you set the NEW current Node to the next node in the previous current node
+            setCurrent(current->getNext());
+        }
         // In this instance, the tail will always be the current word because the loop will finish on the final word (i.e: final node)
         setTail(current);
     }
 
     // Some debug statements to make sure the linked list is roughly working
-    cout << endl << "Head: " << endl;
+    cout << endl
+         << "Head: " << endl;
     cout << head->getData() << endl;
     cout << "Tail: " << endl;
     cout << tail->getData() << endl;
-
 }
 
-void LinkedList::remove(const value_type& word)
+void LinkedList::remove(const value_type &word)
 {
-
 }
 
-void LinkedList::count(const value_type& word)
+int LinkedList::count(const value_type &word)
 {
-    
+    // Declaring and instantiating our counter
+    int i = 0;
+
+    // Reset current to head for this counter
+    setCurrent(head);
+
+    // Continue this loop while the current node pointer does not equal the tail node pointer - doWhile needs to be used instead
+    while (current != tail)
+    {
+        // Check if the current node's word equals the word we are counting
+        if (current->getData() == word)
+        {
+            // If it does add to the counter and reset current to the next word for next iteration
+            i++;
+        }
+        // If current node's word does not match the word being searched just set the current node to the next in the linked
+        setCurrent(current->getNext());
+    }
+
+    // Finally because we don't include tail in the while loop as it is the indicator of the end of the loop, we need to make sure the word in tail node is not the one we are searching for
+    if (tail->getData() == word)
+    {   
+        // If the tail node's word matches the word we are counting. Add an extra number to the counter.
+        i++;
+    }
+
+    return i;
 }
 
 void LinkedList::sort()
 {
-
+    
 }
