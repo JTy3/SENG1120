@@ -62,9 +62,9 @@ int main()
 //	cout << "List 1: " << firstList  << endl;
 //	cout << "List 2: " << secondList << endl << endl;
 
-	cout << "Sorting list 1:" << endl;
-	firstList.sort();
-	cout << firstList << endl << endl;
+	// cout << "Sorting list 1:" << endl;
+	// firstList.sort();
+	// cout << firstList << endl << endl;
 
 	cout << "The program has finished." << endl;
 	return 0;

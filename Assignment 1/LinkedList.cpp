@@ -193,14 +193,15 @@ void LinkedList::remove(const value_type &word)
 {
     // Reset current to head for this counter
     setCurrent(head);
-    value_type null = "";
+
     // Continue this loop while the current node pointer does not equal the tail node pointer
-    while (current != tail)
+    while (current->getNext() != tail)
     {
         // Check if the current node's word equals the word we are deleting
-        if (current->getData() == word)
-        {
-            current->setData(null);
+        if (current->getNext()->getData() == word)
+        {   
+            cout << current->getNext();
+            cout << " = " << current->getNext()->getData() << endl;
             setCurrent(current->getNext());
         }
         else
@@ -210,12 +211,6 @@ void LinkedList::remove(const value_type &word)
         }
     }
 
-    if (current->getData() == word)
-    {
-        cout << word << endl;
-        setCurrent(current->getNext());
-    }
-
     updateMessage();
 }
 
@@ -223,7 +218,7 @@ void LinkedList::remove(const value_type &word)
 // Returns full concatenated message store in the linked list
 void LinkedList::sort()
 {
-    value_type lowest;
+    value_type lowest = "ZZZZZZ";
     value_type temp;
     // Reset current to head for this counter
     setCurrent(head);
