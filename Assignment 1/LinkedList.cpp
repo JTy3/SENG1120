@@ -140,7 +140,6 @@ void LinkedList::setHead(Node *headNode)
 void LinkedList::setTail(Node *tailNode)
 {
     tail = tailNode;
-    tail->setNext(NULL);
 }
 
 // setCurrent() Implementation
@@ -181,6 +180,7 @@ void LinkedList::add(const value_type &message)
         }
         // In this instance, the tail will always be the current word because the loop will finish on the final word (i.e: final node)
         setTail(current);
+        tail->setNext(NULL);
     }
 
     // Whenever we make changes to the string, we will call update message to hold the new data within the private member 'message'
@@ -199,16 +199,32 @@ void LinkedList::remove(const value_type &word)
     {
         // Check if the current node's word equals the word we are deleting
         if (current->getNext()->getData() == word)
-        {   
-            cout << current->getNext();
-            cout << " = " << current->getNext()->getData() << endl;
+        {
+            // Set the current node's next var to the node in front of the one we are about to delete
+            current->setNext(current->getNext()->getNext());
+            // Update current node to be our new next node
             setCurrent(current->getNext());
+            // Delete the now previous node from the stack
+            delete current->getPrevious();
+            // If via deletion the tail is now the current, update the message and exit this function
+            if (current == tail) {
+                updateMessage();
+                return;
+            }
         }
         else
         {
             // If current node's word does not match the word being searched just set the current node to the next in the linked
             setCurrent(current->getNext());
         }
+    }
+
+    // If the tail data is equal to the word we are searching for set the tail to current (as it will be the node previous to tail), delete the next node (old tail) and null out the next node var
+    if (tail->getData() == word)
+    {
+        setTail(current);
+        delete current->getNext();
+        tail->setNext(NULL);
     }
 
     updateMessage();
@@ -218,7 +234,6 @@ void LinkedList::remove(const value_type &word)
 // Returns full concatenated message store in the linked list
 void LinkedList::sort()
 {
-    value_type lowest = "ZZZZZZ";
     value_type temp;
     // Reset current to head for this counter
     setCurrent(head);
@@ -228,7 +243,6 @@ void LinkedList::sort()
         while (current->getData() > current->getNext()->getData())
         {
             temp = current->getData();
-            cout << temp << endl;
             current->setData(current->getNext()->getData());
             current->getNext()->setData(temp);
         }

@@ -53,7 +53,7 @@ int main()
 	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "Number of occurrences of 'black' in list 1: ";
-	cout << firstList.count("cat") << endl << endl;
+	cout << firstList.count("black") << endl << endl;
 	
 //  Uncomment this section if you are implementing the extended version of the method remove()	
 //	cout << "Removing 'on the black' from both lists:" << endl;
@@ -62,9 +62,9 @@ int main()
 //	cout << "List 1: " << firstList  << endl;
 //	cout << "List 2: " << secondList << endl << endl;
 
-	// cout << "Sorting list 1:" << endl;
-	// firstList.sort();
-	// cout << firstList << endl << endl;
+	cout << "Sorting list 1:" << endl;
+	firstList.sort();
+	cout << firstList << endl << endl;
 
 	cout << "The program has finished." << endl;
 	return 0;
