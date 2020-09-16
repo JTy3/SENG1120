@@ -99,6 +99,22 @@ std::ostream &operator<<(std::ostream &os, const LinkedList &ls)
 }
 
 // -------------------------------------------------------------------
+// <-- HELPER IMPLEMENTATION METHOD -->
+// -------------------------------------------------------------------
+
+int LinkedList::countNodes(const value_type &inputData)
+{
+
+    stringstream stream(inputData); // Used for breaking words
+    string word;                    // to store individual words
+
+    int count = 0;
+    while (stream >> word)
+        count++;
+    return count;
+}
+
+// -------------------------------------------------------------------
 // <-- MUTATOR IMPLEMENTATION METHODS -->
 // -------------------------------------------------------------------
 
@@ -115,9 +131,17 @@ void LinkedList::updateMessage()
     // Continue this loop while the current node pointer does not equal the tail node pointer
     while (current != tail)
     {
-        // Build the new message from the data withing each node - make sure to include spaces between words
-        newMessage += " " + current->getData();
-        setCurrent(current->getNext());
+        if (current == head)
+        {
+            newMessage += current->getData();
+            setCurrent(current->getNext());
+        }
+        else
+        {
+            // Build the new message from the data withing each node - make sure to include spaces between words
+            newMessage += " " + current->getData();
+            setCurrent(current->getNext());
+        }
     }
 
     // Grab the data from tail node for our last word
@@ -125,6 +149,7 @@ void LinkedList::updateMessage()
 
     // Give linked list member message the value of newMessage - updating it
     message = newMessage;
+    numberOfNodes = countNodes(message);
 }
 
 // setHead() Implementation
@@ -193,7 +218,6 @@ void LinkedList::remove(const value_type &word)
 {
     // Reset current to head for this counter
     setCurrent(head);
-
     // Continue this loop while the current node pointer does not equal the tail node pointer
     while (current->getNext() != tail)
     {
@@ -207,7 +231,8 @@ void LinkedList::remove(const value_type &word)
             // Delete the now previous node from the stack
             delete current->getPrevious();
             // If via deletion the tail is now the current, update the message and exit this function
-            if (current == tail) {
+            if (current == tail)
+            {
                 updateMessage();
                 return;
             }
@@ -231,22 +256,24 @@ void LinkedList::remove(const value_type &word)
 }
 
 // sort() Implementation
-// Returns full concatenated message store in the linked list
+// Sorts message into alphabetical order
 void LinkedList::sort()
 {
     value_type temp;
-    // Reset current to head for this counter
-    setCurrent(head);
-    // Continue this loop while the current node pointer does not equal the tail node pointer
-    while (current != tail)
+
+    for (int i = 0; i < numberOfNodes - 1; i++)
     {
-        while (current->getData() > current->getNext()->getData())
+        setCurrent(head);
+        for (int i = 0; i < numberOfNodes - 1; i++)
         {
-            temp = current->getData();
-            current->setData(current->getNext()->getData());
-            current->getNext()->setData(temp);
+            while (current->getData() > current->getNext()->getData())
+            {
+                temp = current->getData();
+                current->setData(current->getNext()->getData());
+                current->getNext()->setData(temp);
+            }
+            setCurrent(current->getNext());
         }
-        setCurrent(current->getNext());
     }
 
     updateMessage();
