@@ -12,12 +12,10 @@
 
 using namespace std;
 
+template <typename value_type>
 class LinkedList
 {
 public:
-    // TYPEDEF DECLARATION
-    typedef Node::value_type value_type;
-
     // -------------------------------------------------------------------
     // <-- CONSTRUCTOR DEFINITIONS -->
     // -------------------------------------------------------------------
@@ -25,6 +23,10 @@ public:
     // Precondition:
     // Postcondition: LinkedList is created and implemented in LinkedList.cpp.
     LinkedList();
+
+    // Precondition:
+    // Postcondition: With a value.
+    LinkedList(value_type& data);
 
     // -------------------------------------------------------------------
     // <-- DESTRUCTOR DEFINITION -->
@@ -39,40 +41,16 @@ public:
     // -------------------------------------------------------------------
 
     // Precondition: There are nodes within the linked list
-    // Postcondition: message is set to a concatenation of all nodes in the list.
-    void updateMessage();
+    // Postcondition: Moves current node to the head
+    void currentToHead(Node<value_type> *current);
 
     // Precondition: There are nodes within the linked list
-    // Postcondition: updates head node member
-    void setHead(Node *nextNode);
+    // Postcondition: Adds a node to the tail of the linked list
+    void addToTail(const value_type& data);
 
     // Precondition: There are nodes within the linked list
-    // Postcondition: updates tail node member.
-    void setTail(Node *previousNode);
-
-    // Precondition: There are nodes within the linked list
-    // Postcondition: updates current node member.
-    void setCurrent(Node *currentNode);
-
-    // Precondition:
-    // Postcondition: adds nodes to linked list
-    void add(const value_type &inputData);
-
-    // Precondition: There are nodes within the linked list
-    // Postcondition: removes nodes from linked list
-    void remove(const value_type &inputData);
-
-    // Precondition: There are nodes within the linked list
-    // Postcondition: sorts nodes in linked lists alphabetically.
-    void sort();
-
-    // -------------------------------------------------------------------
-    // <-- QUERY METHODS DEFINITIONS -->
-    // -------------------------------------------------------------------
-
-    // Precondition: there are nodes in the linked list
-    // Postcondition: counts nodes of inputData value in linked list
-    int count(const value_type &inputData);
+    // Postcondition: Removes a node from the head
+    value_type removeFromHead();
 
     // -------------------------------------------------------------------
     // <-- HELPER METHODS DEFINITIONS -->
@@ -80,56 +58,37 @@ public:
 
     // Precondition: There are nodes within the linked list
     // Postcondition: counts nodes in linked list
-    int countNodes(const value_type &inputData);
+    int countNodes();
 
     // -------------------------------------------------------------------
     // <-- ACCESSOR METHODS DEFINITIONS -->
     // -------------------------------------------------------------------
 
-    // Precondition: head node is set a value
-    // Postcondition: returns memory address of head node
-    const Node *getHead() const;
-    Node *getHead();
-
-    // Precondition: tail node is set a value
-    // Postcondition: returns memory address of tail node
-    const Node *getTail() const;
-    Node *getTail();
+    // Precondition: current node is set a value
+    // Postcondition: returns memory address of current
+    const Node<value_type> *getCurrent() const;
+    Node<value_type> *getCurrent();
 
     // Precondition: current node is set a value
     // Postcondition: returns memory address of head
-    const Node *getCurrent() const;
-    Node *getCurrent();
+    const Node<value_type> *getHead() const;
+    Node<value_type> *getHead();
 
-    // Precondition: message member is set a value
-    // Postcondition: returns set message
-    value_type getMessage() const;
-
-    // -------------------------------------------------------------------
-    // <-- OPERATOR OVERLOADING DEFINITION -->
-    // -------------------------------------------------------------------
-
-    // Precondition: ls is another LinkedList and has a message
-    // Postcondition: concatenates two linked lists
-    LinkedList &operator+=(const LinkedList &ls);
+    // Precondition: current node is set a value
+    // Postcondition: returns memory address of head
+    const Node<value_type> *getSize() const;
+    Node<value_type> *getSize();
 
 private:
     // -------------------------------------------------------------------
     // <-- PRIVATE MEMBERS DEFINITIONS-->
     // -------------------------------------------------------------------
-    Node *head;         // Pointer to a Node object - the head node of the linked list
-    Node *tail;         // Pointer to a Node object - the tail node of the linked list
-    Node *current;      // Pointer to a Node object - current node of the linked list
-    value_type message; // message made by nodes in linked list
-    int numberOfNodes;  // number of nodes within the linked list
+    Node<value_type> *head;        // Pointer to a Node object - the head node of the linked list
+    Node<value_type> *tail;        // Pointer to a Node object - the tail node of the linked list
+    Node<value_type> *current;     // Pointer to a Node object - current node of the linked list
+    int numberOfNodes; // number of nodes within the linked list
 };
 
-// -------------------------------------------------------------------
-// <-- OPERATOR OVERLOADING DEFINITION -->
-// -------------------------------------------------------------------
-
-// Precondition: LinkedList is instantiated
-// Postcondition: returns message that is made by linked list
-std::ostream &operator<<(std::ostream &os, const LinkedList &ls);
+#include "LinkedList.hpp"
 
 #endif

@@ -24,11 +24,7 @@ public:
 
     // Precondition:
     // Postcondition: Card is created and implemented in Card.cpp.
-    Card();
-
-    // Precondition:
-    // Postcondition: Card is created and implemented in Card.cpp.
-    Card(const value_type &face);
+    Card(value_type &face);
 
     /// -------------------------------------------------------------------
     // <-- DESTRUCTOR DEFINITION -->
@@ -60,19 +56,19 @@ public:
 
     // Precondition: Next Card has been set
     // Postcondition: Returns nextCard pointer variable
-    const int *getValue() const;
+    int getValue() const;
 
     // Precondition: Next Card has been set
     // Postcondition: Returns nextCard pointer variable
-    int *getValue();
+    int getValue();
 
     // Precondition: Previous Card has been set
     // Postcondition: Returns nextCard pointer variable
-    const bool *getFaceUp() const;
+    bool getFaceUp() const;
 
     // Precondition: Previous Card has been set
     // Postcondition: Returns nextCard pointer variable
-    bool *getFaceUp();
+    bool getFaceUp();
 
     // Decalaration of methods to get data from current Card in linked list
 
@@ -85,9 +81,11 @@ private:
     // <-- PRIVATE MEMBERS DEFINITION -->
     // -------------------------------------------------------------------
 
-    value_type face;  // Just the string stored within the Card
-    int value;        // Pointer to a Card object - which is next in the list
-    bool faceUp;      // Pointer to a Card object - which is previous in the list
+    value_type face; // Just the string stored within the Card
+    int cardValue;   // Pointer to a Card object - which is next in the list
+    bool faceUp;     // Pointer to a Card object - which is previous in the list
 };
+
+ostream &operator<<(ostream &out, const Card &card);   // Overriding cout operator
 
 #endif
