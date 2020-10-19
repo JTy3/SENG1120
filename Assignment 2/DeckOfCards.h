@@ -30,7 +30,7 @@ public:
     const Node<Card> draw();
 
     // Called to shuffle an exisiting deck of cards
-    Card shuffle();
+    void shuffle();
 
     // Accessor function for Queue
     string listOfCards();

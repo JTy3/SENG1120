@@ -29,7 +29,7 @@ public:
 
     // Precondition: Queue is instantiated
     // Postcondition: Enqueues Card in queue
-    void enqueue(Node<value_type> *addCard);
+    void enqueue(std::string cardValue);
 
     // Precondition: Queue is instantiated
     // Postcondition: Dequeues Card in queue
@@ -39,7 +39,7 @@ public:
 
     // Precondition: Next Queue has been set
     // Postcondition: Returns nextQueue pointer variable
-    const Node<value_type> getFront();
+    Node<value_type> getFront();
 
     // Precondition: Data has been set
     // Postcondition: Returns nextQueue pointer variable

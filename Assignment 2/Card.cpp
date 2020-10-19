@@ -17,7 +17,7 @@ Card::Card(value_type &initialData)
     // Similar to function setData, this is so 'data' for this Card remain persistent beyond it's call
     face = initialData;
     faceUp = false;
-    cardValue = NULL;
+    cardValue = 0;
 }
 
 // -------------------------------------------------------------------
@@ -29,7 +29,7 @@ Card::~Card()
 {
     // Set next and prev pointers to NULL to display something being in the destructor
     face = "";
-    cardValue = NULL;
+    cardValue = 0;
     faceUp = NULL;
 }
 

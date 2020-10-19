@@ -71,13 +71,12 @@ public:
 
     // Precondition: current node is set a value
     // Postcondition: returns memory address of head
-    const Node<value_type> *getHead() const;
-    Node<value_type> *getHead();
+    const Node<value_type> getHead() const;
+    Node<value_type> getHead();
 
     // Precondition: current node is set a value
     // Postcondition: returns memory address of head
-    const Node<value_type> *getSize() const;
-    Node<value_type> *getSize();
+    int getSize();
 
 private:
     // -------------------------------------------------------------------
@@ -86,7 +85,7 @@ private:
     Node<value_type> *head;        // Pointer to a Node object - the head node of the linked list
     Node<value_type> *tail;        // Pointer to a Node object - the tail node of the linked list
     Node<value_type> *current;     // Pointer to a Node object - current node of the linked list
-    int numberOfNodes; // number of nodes within the linked list
+    int numberOfNodes;             // number of nodes within the linked list
 };
 
 #include "LinkedList.hpp"

@@ -16,7 +16,7 @@ LinkedList<value_type>::LinkedList()
     head = NULL;
     tail = NULL;
     current = NULL;
-    numberOfNodes = NULL;
+    numberOfNodes = 1;
 }
 
 template <typename value_type>
@@ -39,7 +39,7 @@ LinkedList<value_type>::~LinkedList()
     head = NULL;
     tail = NULL;
     current = NULL;
-    numberOfNodes = NULL;
+    numberOfNodes = 0;
 }
 
 // -------------------------------------------------------------------
@@ -61,7 +61,7 @@ void LinkedList<value_type>::addToTail(const value_type &data)
     {
         Node<value_type> *tailInsert = new Node<value_type>(data);
         tail->setNext(tailInsert);
-        tailInsert->setPrevious(tail);
+        tailInsert->setPrev(tail);
         tail = tailInsert;
         numberOfNodes++;
         tailInsert = NULL;
@@ -119,30 +119,23 @@ Node<value_type> *LinkedList<value_type>::getCurrent()
 // Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
 // Const
 template <typename value_type>
-const Node<value_type> *LinkedList<value_type>::getHead() const
+const Node<value_type> LinkedList<value_type>::getHead() const
 {
     return head;
 }
 
 // Non-const
 template <typename value_type>
-Node<value_type> *LinkedList<value_type>::getHead()
+Node<value_type> LinkedList<value_type>::getHead()
 {
     return head;
 }
 
 // geSize() Implementations
 // Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Const
-template <typename value_type>
-const Node<value_type> *LinkedList<value_type>::getSize() const
-{
-    return numberOfNodes;
-}
-
 // Non-const
 template <typename value_type>
-Node<value_type> *LinkedList<value_type>::getSize()
+int LinkedList<value_type>::getSize()
 {
     return numberOfNodes;
 }

@@ -12,7 +12,7 @@
 template <typename value_type>
 Queue<value_type>::Queue()
 {
-    LinkedList<value_type> data = new LinkedList<value_type>();
+    LinkedList<value_type> *data = new LinkedList<value_type>();
     numberOfNodes = data->getSize();
 }
 
@@ -21,7 +21,7 @@ Queue<value_type>::Queue()
 // Automatically invoked upon out of scope or deleted instance of Queue object
 // -------------------------------------------------------------------
 template <typename value_type>
-LinkedList<value_type>::~LinkedList()
+Queue<value_type>::~Queue()
 {
     // Similar to how my destructor is written for Node I am just setting all pointers to NULL here so the destructor is holding a value
     data = NULL;
@@ -34,27 +34,27 @@ LinkedList<value_type>::~LinkedList()
 // -------------------------------------------------------------------
 
 template <typename value_type>
-void Queue<value_type>::enqueue(Node<value_type> *addCard)
+void Queue<value_type>::enqueue(std::string cardValue)
 {
-    data->addToTail(addCard);
-    numberOfNodes = data->numberOfNodes();
+    data.addToTail(cardValue);
+    numberOfNodes = data.getSize();
 }
 
 template <typename value_type>
 void Queue<value_type>::dequeue(Node<value_type> *removeCard)
 {
-    data->removeFromHead(addCard);
+    data->removeFromHead(removeCard);
     numberOfNodes = data->numberOfNodes();
 }
 
 template <typename value_type>
-const Node<value_type> Queue<value_type>::getFront()
+Node<value_type> Queue<value_type>::getFront()
 {
-    return data->getHead();
+    return data.getHead();
 }
 
 template <typename value_type>
 int Queue<value_type>::getSize()
 {
-    return data->countNodes();
+    return data->getSize();
 }

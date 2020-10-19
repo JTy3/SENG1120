@@ -13,6 +13,11 @@
 // Initialised with data
 DeckOfCards::DeckOfCards()
 {
+    Queue<Card> *data = new Queue<Card>;
+    for(int i = 0; i < 10; i++){
+        std::string stringValue = "Number" + i;
+        data->enqueue(stringValue);
+    }
 }
 
 // -------------------------------------------------------------------
@@ -43,12 +48,14 @@ const Node<Card> DeckOfCards::draw()
 string DeckOfCards::listOfCards() 
 {
     string listOfCards = "";
-    Node<Card> currentCard = data->getFront();
+    const Node<Card> currentNode = data->getFront();
+    Card currentCard = currentNode.getData();
+    listOfCards += currentCard.getFace();
     return listOfCards;
 }
 
 ostream &operator<<(ostream &out, DeckOfCards &DeckOfCards)
 {
-    
+    out << DeckOfCards.listOfCards();
     return out; // Return back the result
 }

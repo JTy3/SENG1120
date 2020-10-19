@@ -20,7 +20,7 @@ public:
     // -------------------------------------------------------------------
 
     // Constructor Declaration
-    Node(const value_type &value);
+    Node(const value_type& value);
 
     // Destructor Declaration
     ~Node();
