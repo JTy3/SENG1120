@@ -29,21 +29,23 @@ public:
 
     // Precondition: Queue is instantiated
     // Postcondition: Enqueues Card in queue
-    void enqueue(std::string cardValue);
+    void enqueue(const value_type &addCard);
 
     // Precondition: Queue is instantiated
     // Postcondition: Dequeues Card in queue
-    void dequeue(Node<value_type> *removeCard);
+    Node<value_type> dequeue();
 
     // Accessor function declaration
 
     // Precondition: Next Queue has been set
     // Postcondition: Returns nextQueue pointer variable
-    Node<value_type> getFront();
+    Node<value_type>* getFront();
 
     // Precondition: Data has been set
     // Postcondition: Returns nextQueue pointer variable
     int getSize();
+
+    void showQueue();
 
 private:
     // -------------------------------------------------------------------

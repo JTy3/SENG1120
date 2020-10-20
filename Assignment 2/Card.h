@@ -14,17 +14,13 @@ class Card
 {
 public:
     // -------------------------------------------------------------------
-    // <-- TYPEDEF DEFINITION -->
-    // -------------------------------------------------------------------
-    typedef std::string value_type;
-
-    // -------------------------------------------------------------------
     // <-- CONSTRUCTORS DEFINITIONS -->
     // -------------------------------------------------------------------
 
     // Precondition:
     // Postcondition: Card is created and implemented in Card.cpp.
-    Card(value_type &face);
+    Card();
+    Card(string face);
 
     /// -------------------------------------------------------------------
     // <-- DESTRUCTOR DEFINITION -->
@@ -48,7 +44,7 @@ public:
 
     // Precondition: Card has been instantiated
     // Postcondition: Card value is set (numeric value and suit)
-    void setFace(const value_type &inputData);
+    void setFace(string inputData);
 
     // -------------------------------------------------------------------
     // <-- ACCESSOR METHODS DEFINITIONS -->
@@ -74,14 +70,14 @@ public:
 
     // Precondition: Data has been set
     // Postcondition: Returns data type_def variable
-    value_type getFace() const;
+    string getFace() const;
 
 private:
     // -------------------------------------------------------------------
     // <-- PRIVATE MEMBERS DEFINITION -->
     // -------------------------------------------------------------------
 
-    value_type face; // Just the string stored within the Card
+    string face;       // Just the string stored within the Card
     int cardValue;   // Pointer to a Card object - which is next in the list
     bool faceUp;     // Pointer to a Card object - which is previous in the list
 };

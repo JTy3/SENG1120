@@ -1,73 +1,97 @@
 // Node.h
 // Author: Jacob Tye (Git: JTy3)
-// Date: 19-10-2020
-// Description: Assignment 2 - Node Header File
+// Date: 14-9-2020
+// Description: Assignment 1 - Node Header File
 
 #ifndef ASSIGNMENT_NODE
 #define ASSIGNMENT_NODE
 
 #include <iostream>
-#include "Card.h"
+
+#include"Card.h"
 
 using namespace std;
 
-template <typename value_type>
+template <class value_type>
 class Node
 {
 public:
     // -------------------------------------------------------------------
-    // <-- PUBLIC MEMBERS DEFINITION -->
+    // <-- CONSTRUCTORS DEFINITIONS -->
     // -------------------------------------------------------------------
 
-    // Constructor Declaration
-    Node(const value_type& value);
+    // Precondition:
+    // Postcondition: Node is created and implemented in Node.cpp.
+    Node();
 
-    // Destructor Declaration
+    // Precondition:
+    // Postcondition: Node is created and implemented in Node.cpp.
+    Node(const value_type &initialData);
+
+    /// -------------------------------------------------------------------
+    // <-- DESTRUCTOR DEFINITION -->
+    // -------------------------------------------------------------------
+
+    // Precondition:
+    // Postcondition: Node is destructed upon deletion
     ~Node();
 
-    // Mutator function declarations
+    // -------------------------------------------------------------------
+    // <-- MUTATOR METHODS DEFINITION -->
+    // -------------------------------------------------------------------
 
-    // Precondition: Node is instantiated
-    // Postcondition: Sets next node in list
+    // Precondition: Node has been instantiated
+    // Postcondition: Next node is set as a pointer to another node
     void setNext(Node *nextNode);
 
-    // Precondition: Node is instantiated
-    // Postcondition: Sets previous node in list
-    void setPrev(Node *prevNode);
+    // Precondition: Node has been instantiated
+    // Postcondition: previous node is set as a pointer to another node
+    void setPrevious(Node *previousNode);
 
-    // Precondition: Node is instantiated with the same data type as the one being parsed as an argument
-    // Postcondition: Sets data for this node
+    // Precondition: Node has been instantiated
+    // Postcondition: Data contained in node is set as a value_type variable
     void setData(const value_type &inputData);
 
-    // Accessor function declaration
+    // -------------------------------------------------------------------
+    // <-- ACCESSOR METHODS DEFINITIONS -->
+    // -------------------------------------------------------------------
+
+    // Decalaration of methods to get next node in linked list (both const and non-const)
 
     // Precondition: Next node has been set
     // Postcondition: Returns nextNode pointer variable
     const Node *getNext() const;
+
     // Precondition: Next node has been set
     // Postcondition: Returns nextNode pointer variable
     Node *getNext();
 
+    // Decalaration of methods to get previous node in linked list (both const and non-const)
+
     // Precondition: Previous node has been set
     // Postcondition: Returns nextNode pointer variable
     const Node *getPrevious() const;
+
     // Precondition: Previous node has been set
     // Postcondition: Returns nextNode pointer variable
     Node *getPrevious();
 
+    // Decalaration of methods to get data from current node in linked list
+
     // Precondition: Data has been set
-    // Postcondition: Returns nextNode pointer variable
+    // Postcondition: Returns data type_def variable
     value_type getData() const;
 
 private:
     // -------------------------------------------------------------------
     // <-- PRIVATE MEMBERS DEFINITION -->
     // -------------------------------------------------------------------
+
     value_type data; // Just the string stored within the node
-    Node<value_type> *next;      // Pointer to a Node object - which is next in the list
-    Node<value_type> *prev;      // Pointer to a Node object - which is previous in the list
+    Node *next;      // Pointer to a Node object - which is next in the list
+    Node *prev;      // Pointer to a Node object - which is previous in the list
 };
 
-#include "Node.hpp"
+#include"Node.hpp"
 
 #endif

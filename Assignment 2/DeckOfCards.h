@@ -27,10 +27,12 @@ public:
     // Mutator Methods
 
     // Called to draw a card from the deck
-    const Node<Card> draw();
+    Node<Card> draw();
 
     // Called to shuffle an exisiting deck of cards
     void shuffle();
+
+    void showDeck();
 
     // Accessor function for Queue
     string listOfCards();
@@ -39,7 +41,7 @@ private:
     // -------------------------------------------------------------------
     // <-- PRIVATE MEMBERS DEFINITION -->
     // -------------------------------------------------------------------
-    Queue<Card> *data;
+    Queue<Card> data;
 };
 
 ostream &operator<<(ostream &out, DeckOfCards &deck);   // Overriding cout operator

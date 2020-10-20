@@ -13,10 +13,12 @@
 // Initialised with data
 DeckOfCards::DeckOfCards()
 {
-    Queue<Card> *data = new Queue<Card>;
-    for(int i = 0; i < 10; i++){
-        std::string stringValue = "Number" + i;
-        data->enqueue(stringValue);
+    Card tempCard;
+    for (int i = 0; i < 10; i++)
+    {
+        string stringValue = "Number" + i;
+        tempCard.setFace(stringValue);
+        data.enqueue(tempCard);
     }
 }
 
@@ -27,7 +29,6 @@ DeckOfCards::DeckOfCards()
 
 DeckOfCards::~DeckOfCards()
 {
-    data = NULL;
 }
 
 // -------------------------------------------------------------------
@@ -35,27 +36,17 @@ DeckOfCards::~DeckOfCards()
 // Automatically invoked upon out of scope or deleted instance of Queue object
 // -------------------------------------------------------------------
 
-const Node<Card> DeckOfCards::draw()
+Node<Card> DeckOfCards::draw()
 {
-    return data->getFront();
+    return data.dequeue();
 }
 
-// -------------------------------------------------------------------
-// <-- ACCESSOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of Queue object
-// -------------------------------------------------------------------
-
-string DeckOfCards::listOfCards() 
+void DeckOfCards::showDeck()
 {
-    string listOfCards = "";
-    const Node<Card> currentNode = data->getFront();
-    Card currentCard = currentNode.getData();
-    listOfCards += currentCard.getFace();
-    return listOfCards;
+    data.showQueue();
 }
 
 ostream &operator<<(ostream &out, DeckOfCards &DeckOfCards)
 {
-    out << DeckOfCards.listOfCards();
-    return out; // Return back the result
+    DeckOfCards.showDeck();
 }

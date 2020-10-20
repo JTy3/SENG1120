@@ -11,7 +11,17 @@
 // -------------------------------------------------------------------
 
 // Initialised with data
-Card::Card(value_type &initialData)
+Card::Card()
+{
+    // Set 'data' to the memory dress of the parsed string
+    // Similar to function setData, this is so 'data' for this Card remain persistent beyond it's call
+    face = " ";
+    faceUp = false;
+    cardValue = 0;
+}
+
+// Initialised with data
+Card::Card(string initialData)
 {
     // Set 'data' to the memory dress of the parsed string
     // Similar to function setData, this is so 'data' for this Card remain persistent beyond it's call
@@ -39,7 +49,7 @@ Card::~Card()
 // -------------------------------------------------------------------
 
 // Get Data of current Card
-Card::value_type Card::getFace() const
+string Card::getFace() const
 {
     return face;
 }
@@ -76,7 +86,7 @@ bool Card::getFaceUp() const
 // -------------------------------------------------------------------
 
 // Same as initialising with a value setData needs to reference the memory address of the argument for data persistence
-void Card::setFace(const value_type &inputValue)
+void Card::setFace(string inputValue)
 {
     face = inputValue;
 }

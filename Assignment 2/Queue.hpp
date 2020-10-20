@@ -24,8 +24,7 @@ template <typename value_type>
 Queue<value_type>::~Queue()
 {
     // Similar to how my destructor is written for Node I am just setting all pointers to NULL here so the destructor is holding a value
-    data = NULL;
-    numberOfNodes = NULL;
+    numberOfNodes = 0;
 }
 
 // -------------------------------------------------------------------
@@ -34,21 +33,22 @@ Queue<value_type>::~Queue()
 // -------------------------------------------------------------------
 
 template <typename value_type>
-void Queue<value_type>::enqueue(std::string cardValue)
+void Queue<value_type>::enqueue(const value_type &addCard)
 {
-    data.addToTail(cardValue);
+    data.addToTail(addCard);
     numberOfNodes = data.getSize();
 }
 
 template <typename value_type>
-void Queue<value_type>::dequeue(Node<value_type> *removeCard)
+Node<value_type> Queue<value_type>::dequeue()
 {
-    data->removeFromHead(removeCard);
-    numberOfNodes = data->numberOfNodes();
+    Node<value_type> removedCard = data.removeFromHead();
+    numberOfNodes = data.getSize();
+    return removedCard;
 }
 
 template <typename value_type>
-Node<value_type> Queue<value_type>::getFront()
+Node<value_type>* Queue<value_type>::getFront()
 {
     return data.getHead();
 }
@@ -57,4 +57,10 @@ template <typename value_type>
 int Queue<value_type>::getSize()
 {
     return data->getSize();
+}
+
+template <typename value_type>
+void Queue<value_type>::showQueue()
+{
+    data.showHand();
 }
