@@ -66,9 +66,10 @@ void DeckOfCards::shuffle()
 
 	int randomNum;
 
-	for (int j = 0; j < 1000; j++)
+	for (int j = 0; j < 10; j++)
 	{
 		randomNum = rand() % 4 + 1;
+		cout << randomNum << endl;
 		if ((randomNum == 1))
 		{
 			shuffle_group_2->enqueue(shuffle_group_1->dequeue());

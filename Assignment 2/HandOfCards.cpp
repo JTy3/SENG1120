@@ -16,14 +16,17 @@ HandOfCards::~HandOfCards()
 
 int HandOfCards::count()
 {
+    cout << hand->queueValue() << endl;
+    return hand->queueValue();
 }
 
 int HandOfCards::countAll()
 {
 }
 
-string HandOfCards::value()
+Queue<Card> *HandOfCards::value()
 {
+    return hand;
 }
 
 void HandOfCards::faceUp()
@@ -38,8 +41,8 @@ void HandOfCards::add(Card card, const bool faceUp)
     hand->enqueue(card);
 }
 
-ostream &operator<<(ostream &out, HandOfCards &cards)
+std::ostream &operator<<(std::ostream &strm, HandOfCards &deck)
 {
-    out << cards.value(); // Output the return string of function getFace()
-    return out;           // Return back the result
+	strm << deck.value()->countDeck();
+	return strm;
 }

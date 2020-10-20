@@ -27,9 +27,6 @@ public:
 
 	//Custom Functions
 	void add(const data_type &data);
-	void remove(const data_type &word);
-	void concatenateMessage();
-	int count(const data_type &word);
 
 	//Accesors
 	void setCurrent(Node<data_type> *newCurrent);
@@ -46,6 +43,7 @@ public:
 	Node<data_type> *getCurrent();
 	data_type removeFromHead();
 	int getCount();
+	int getListValue();
 
 	//Operator overiding
 	LinkedList &operator+=(const LinkedList &ls);

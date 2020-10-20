@@ -19,7 +19,7 @@ public:
 
     int countAll();
 
-    string value();
+    Queue<Card> *value();
 
     void faceUp();
 

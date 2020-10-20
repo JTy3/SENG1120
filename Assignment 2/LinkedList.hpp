@@ -110,6 +110,25 @@ int LinkedList<data_type>::getCount()
 }
 
 template <class data_type>
+int LinkedList<data_type>::getListValue()
+{
+	int count = 0;
+	setCurrent(HEAD);
+	while (CURRENT != NULL)
+	{
+		count += CURRENT->getData().getValue();
+		CURRENT = CURRENT->getNext();
+	}
+	
+	if (TAIL != NULL)
+	{
+		count += TAIL->getData().getValue();
+	}
+
+	return count;
+}
+
+template <class data_type>
 void LinkedList<data_type>::moveToHead(Node<data_type>* newHead)
 {
 	HEAD = newHead;
@@ -165,81 +184,7 @@ data_type LinkedList<data_type>::removeFromHead()
     return value;
 }
 
-
-// A function to remove specific data from nodes
-// Precondition = Specific, working word to be removed.
-// Postcondition = Updates data with a new list with specific word/s removed.
-template <class data_type>
-void LinkedList<data_type>::remove(const data_type &word)
-{
-	// Empty pointer NODES
-	Node<data_type> *newCurrent; 
-	Node<data_type>* trailCurrent;
-	Node<data_type>* testCurrent = HEAD;
-
-
-	while (testCurrent != TAIL) // Until you are at the end of the Linked List
-	{
-		if (testCurrent->getData() == word) // If specific word is found
-		{
-			newCurrent = testCurrent; // new Current is equal to the old test Current
-
-			trailCurrent = newCurrent->getPrev(); // Trail current is set to 1 behind the new Current
-			
-			trailCurrent->setNext(newCurrent->getNext()); // Trail current set its next next to newcurrents
-			
-			trailCurrent = newCurrent->getNext(); // trail current is now the one in front of newcurrent
-			
-			trailCurrent->setPrev(newCurrent->getPrev()); // trail sets its previous to newcurrents old previous
-		
-
-			if(newCurrent->getNext() == NULL)   // if newcurrent was the tail, set the previous one to the tail
-			{
-				setTail(newCurrent->getPrev());
-			}
-			
-			testCurrent = testCurrent->getNext(); //Keep moving testCurrent and check again
-
-		}
-		else
-		{
-			testCurrent = testCurrent->getNext(); //Keep moving testCurrent and check again
-		}
-
-	}
-
-	if (testCurrent->getData() == word) // If the final word is testCurrents data
-	{
-		setTail(testCurrent->getPrev()); // set to tail
-		delete testCurrent; // Delete the Node
-		TAIL->setNext(NULL); // set the tails next to NULL
-	}
-}
-
-//Precondition = Input an object of type value_type
-//Postcondition = returns an integer of a specific count of how many times the word was used in this object.
-template <class data_type>
-int LinkedList<data_type>::count(const data_type &word)
-{
-	Node<data_type>* testCurrent; // Empty locator Node
-
-	testCurrent = HEAD; // Start at head
-
-	int count = 0; // count starts at 0
-	while (testCurrent->getNext() != NULL) // Whilst your not at the end of the list
-	{
-		if (testCurrent->getData() == word) // Check if word is in data
-		{
-			count++; // if it is add to the count
-		}
-		testCurrent = testCurrent->getNext(); // keep moving
-
-	}
-	return count; //return the count
-}
-
 //Operator Overloading
-
 //Precondition = Operator needs a valid linked list to output
 //Postcondition = returns the Data from all the nodes, compiled with spaces.
 template <class data_type>

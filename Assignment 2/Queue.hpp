@@ -51,6 +51,12 @@ const int Queue<data_type>::size()
 }
 
 template <class data_type>
+int Queue<data_type>::queueValue()
+{
+	return data->getListValue();
+}
+
+template <class data_type>
 string Queue<data_type>::countDeck()
 {
 	data->setCurrent(data->getHead());

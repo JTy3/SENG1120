@@ -22,6 +22,7 @@ class Queue
 		data_type dequeue(); 
 
 		const int size();
+		int queueValue();
 		bool is_empty() const;
 		data_type front();
 		string countDeck();
