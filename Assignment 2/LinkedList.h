@@ -1,112 +1,68 @@
-// LinkedList.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 14-9-2020
-// Description: Assignment 1 - Linked List Header File
+//This defines a basic structure for a linked list
+//Programmer: Joshua Elton
+//Last Modified 12/09/2020
+//This file should be used with LinkedList.cpp and Assignment 1 files
 
-#ifndef ASSIGNMENT_LINKED_LIST
-#define ASSIGNMENT_LINKED_LIST
+//MACROGUARDS
+#ifndef NEW_LINKED_LIST
+#define NEW_LINKED_LIST
 
+//Needed Libraries
 #include <iostream>
 #include <sstream>
 #include "Node.h"
 
+//Use this namespace
 using namespace std;
 
-template <class value_type>
+//Class template declaration
+template <class data_type>
 class LinkedList
 {
 public:
-    // -------------------------------------------------------------------
-    // <-- CONSTRUCTOR DEFINITIONS -->
-    // -------------------------------------------------------------------
+	LinkedList(); // Constructor
+	LinkedList(data_type &node);
 
-    // Precondition:
-    // Postcondition: LinkedList is created and implemented in LinkedList.cpp.
-    LinkedList();
+	~LinkedList(); // Deconstructor
 
-    // -------------------------------------------------------------------
-    // <-- DESTRUCTOR DEFINITION -->
-    // -------------------------------------------------------------------
+	//Custom Functions
+	void add(const data_type &data);
+	void remove(const data_type &word);
+	void concatenateMessage();
+	int count(const data_type &word);
 
-    // Precondition: LinkedList instance is deleted
-    // Postcondition: Handles memory allocations
-    ~LinkedList();
+	//Accesors
+	void setCurrent(Node<data_type> *newCurrent);
+	void setHead(const data_type &data);
+	void setTail(Node<data_type> *newTail);
+	void setData(data_type newData);
+	void moveToHead(Node<data_type> *newHead);
 
-    // -------------------------------------------------------------------
-    // <-- MUTATOR METHODS DEFINITIONS -->
-    // -------------------------------------------------------------------
+	//Mutators
+	data_type getData() const;
+	Node<data_type> *getHead();
+	Node<data_type> *getTail();
+	Node<data_type> *getNext();
+	Node<data_type> *getCurrent();
+	data_type removeFromHead();
+	int getCount();
 
-    // Precondition: There are Node<value_type>s within the linked list
-    // Postcondition: updates head Node<value_type> member
-    void setHead(Node<value_type> *nextNode);
+	//Operator overiding
+	LinkedList &operator+=(const LinkedList &ls);
 
-    // Precondition: There are Node<value_type>s within the linked list
-    // Postcondition: updates tail Node<value_type> member.
-    void setTail(Node<value_type> *previousNode);
-
-    // Precondition: There are Node<value_type>s within the linked list
-    // Postcondition: updates current Node<value_type> member.
-    void setCurrent(Node<value_type> *currentNode);
-
-    // Precondition:
-    // Postcondition: adds Node<value_type>s to linked list
-    void addToTail(const value_type &inputData);
-
-    // Precondition: There are Node<value_type>s within the linked list
-    // Postcondition: removes Node<value_type>s from linked list
-    value_type removeFromHead();
-
-    // -------------------------------------------------------------------
-    // <-- HELPER METHODS DEFINITIONS -->
-    // -------------------------------------------------------------------
-
-    // Precondition: There are Node<value_type>s within the linked list
-    // Postcondition: counts Node<value_type>s in linked list
-    int countNodes();
-
-    // -------------------------------------------------------------------
-    // <-- ACCESSOR METHODS DEFINITIONS -->
-    // -------------------------------------------------------------------
-
-    // Precondition: head Node<value_type> is set a value
-    // Postcondition: returns memory address of head Node<value_type>
-    const Node<value_type> *getHead() const;
-    Node<value_type> *getHead();
-
-    // Precondition: tail Node<value_type> is set a value
-    // Postcondition: returns memory address of tail Node<value_type>
-    const Node<value_type> *getTail() const;
-    Node<value_type> *getTail();
-
-    // Precondition: current Node<value_type> is set a value
-    // Postcondition: returns memory address of head
-    const Node<value_type> *getCurrent() const;
-    Node<value_type> *getCurrent();
-
-    int getSize();
-
-    // Precondition: message member is set a value
-    // Postcondition: returns set message
-    void showHand();
-
-    // -------------------------------------------------------------------
-    // <-- OPERATOR OVERLOADING DEFINITION -->
-    // -------------------------------------------------------------------
-
-    // Precondition: ls is another LinkedList and has a message
-    // Postcondition: concatenates two linked lists
-    LinkedList<value_type> &operator+=(const LinkedList<value_type> &ls);
-
+	//Private variables unaccesible from other classes
 private:
-    // -------------------------------------------------------------------
-    // <-- PRIVATE MEMBERS DEFINITIONS-->
-    // -------------------------------------------------------------------
-    Node<value_type> *head;         // Pointer to a Node<value_type> object - the head Node<value_type> of the linked list
-    Node<value_type> *tail;         // Pointer to a Node<value_type> object - the tail Node<value_type> of the linked list
-    Node<value_type> *current;      // Pointer to a Node<value_type> object - current Node<value_type> of the linked list
-    int numberOfNodes;  // number of Node<value_type>s within the linked list
+	data_type data;
+	Node<data_type> *node;
+	Node<data_type> *CURRENT;
+	Node<data_type> *HEAD;
+	Node<data_type> *TAIL;
+	int numberOfNodes;
 };
 
-#include"LinkedList.hpp"
+//Has to be declared outside of class due to its Library
+template <class data_type>
+std::ostream &operator<<(std::ostream &os, const LinkedList<data_type> &ll);
 
+#include "LinkedList.hpp"
 #endif

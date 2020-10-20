@@ -1,237 +1,259 @@
-// LinkedList.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 14-9-2020
-// Description: Assignment 1 - Linked List Implementation File
+//This defines a basic controls for a linked list
+//Programmer: Joshua Elton
+//Last Modified 16/09/2020
+//This file should be used with LinkedList.cpp and Assignment 1 files
 
 #include "LinkedList.h"
 
-// -------------------------------------------------------------------
-// <-- CONSTRUCTOR IMPLEMENTATION METHOD -->
-// -------------------------------------------------------------------
+using namespace std;
 
-// Initialised with no data (we add data to Linked List with the add() mutator function)
-template <class value_type>
-LinkedList<value_type>::LinkedList()
+
+template <class data_type>
+//Constructor
+LinkedList<data_type>::LinkedList()
 {
-    head = NULL;
-    tail = NULL;
-    current = NULL;
+	//Set all values to NULL upon creating a new list
+	HEAD = NULL; //The node which is at the start of the Linked List
+	TAIL = NULL; //The node which is at the End of the Linked List
+	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
 }
 
-// -------------------------------------------------------------------
-// <-- DESTRUCTOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of LinkedList object
-// -------------------------------------------------------------------
-
-template <class value_type>
-LinkedList<value_type>::~LinkedList()
+template <class data_type>
+LinkedList<data_type>::LinkedList(data_type& node)
 {
-    // Similar to how my destructor is written for Node<value_type> I am just setting all pointers to NULL here so the destructor is holding a value
-    head = NULL;
-    tail = NULL;
-    current = NULL;
+	HEAD = NULL; //The node which is at the start of the Linked List
+	TAIL = NULL; //The node which is at the End of the Linked List
+	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
+	add(node);
 }
 
-// -------------------------------------------------------------------
-// <-- ACCESSOR IMPLEMENTATION METHODS -->
-// -------------------------------------------------------------------
-
-// getHead() Implementations
-// Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Non-const
-template <class value_type>
-Node<value_type> *LinkedList<value_type>::getHead()
+//Deconstructor
+template <class data_type>
+LinkedList<data_type>::~LinkedList()
 {
-    return head;
-}
-// Const
-template <class value_type>
-const Node<value_type> *LinkedList<value_type>::getHead() const
-{
-    return head;
+	HEAD = NULL;
+	TAIL = NULL;
+	CURRENT = NULL;
 }
 
-// getTail() Implementations
-// Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Non-const
-template <class value_type>
-Node<value_type> *LinkedList<value_type>::getTail()
+//Getters And Setters (Mutator/Acessor Methods)
+template <class data_type>
+Node<data_type>* LinkedList<data_type>::getHead()
 {
-    return tail;
-}
-// Const
-template <class value_type>
-const Node<value_type> *LinkedList<value_type>::getTail() const
-{
-    return tail;
+	return HEAD;
 }
 
-// getCurrent() Implementations
-// Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Non-const
-template <class value_type>
-Node<value_type> *LinkedList<value_type>::getCurrent()
+template <class data_type>
+Node<data_type>* LinkedList<data_type>::getTail()
 {
-    return current;
-}
-// Const
-template <class value_type>
-const Node<value_type> *LinkedList<value_type>::getCurrent() const
-{
-    return current;
+	return TAIL;
 }
 
-template <class value_type>
-int LinkedList<value_type>::getSize()
+template <class data_type>
+Node<data_type>* LinkedList<data_type>::getCurrent()
 {
-    return numberOfNodes;
+	return CURRENT;
+}
+template <class data_type>
+Node<data_type>* LinkedList<data_type>::getNext()
+{
+	return CURRENT->getNext();
 }
 
-template <class value_type>
-void LinkedList<value_type>::showHand()
+template <class data_type>
+data_type LinkedList<data_type>::getData() const //Using LinkedList::Value_type to reference the valuetype specified in Node
 {
-    // Reset current to head node for this counter
-    setCurrent(head);
-
-    // Continue this loop while the current node pointer does not equal the tail node pointer
-    while (current != tail)
-    {
-        if (current == head)
-        {
-            cout << current->getData() << " ";
-            setCurrent(current->getNext());
-        }
-        else
-        {
-            // Build the new message from the data withing each node - make sure to include spaces between words
-            cout << current->getData() << " ";
-            setCurrent(current->getNext());
-        }
-    }
-
-    // Grab the data from tail node for our last word
-    cout << tail->getData() << endl;
+    return data;
 }
 
-// -------------------------------------------------------------------
-// <-- OPERATOR OVERLOAD METHODS -->
-// -------------------------------------------------------------------
-
-// Overloads += operator
-template <class value_type>
-LinkedList<value_type> &LinkedList<value_type>::operator+=(const LinkedList &ls)
+template <class data_type>
+void LinkedList<data_type>::setCurrent(Node<data_type>* newCurrent)
 {
-    add(ls.getcard());
-    return *this;
+	CURRENT = newCurrent;
 }
 
-// Overloads the operator '<<'
-template <class value_type>
-std::ostream &operator<<(std::ostream &os, const LinkedList<value_type> &ls)
+template <class data_type>
+void LinkedList<data_type>::setHead(const data_type& data)
 {
-    os << ls.showHand();
-    return os;
+	setCurrent(new Node<data_type>(data));
+	CURRENT->setNext(HEAD);
+	HEAD->setPrev(CURRENT);
+	HEAD = CURRENT;
+	HEAD->setPrev(NULL); // Makes sure It is the previous node
 }
 
-// -------------------------------------------------------------------
-// <-- HELPER IMPLEMENTATION METHOD -->
-// -------------------------------------------------------------------
-template <class value_type>
-int LinkedList<value_type>::countNodes()
+template <class data_type>
+void LinkedList<data_type>::setTail(Node<data_type>* newTail)
 {
-    int i = 0;
-
-    // Reset current to head node for this counter
-    setCurrent(head);
-
-    // Continue this loop while the current node pointer does not equal the tail node pointer
-    while (current != tail)
-    {
-        i++;
-    }
-
-    if (tail != NULL)
-    {
-        i++;
-    }
-
-    return i;
+	TAIL = newTail;
+	TAIL->setNext(NULL);
 }
 
-// -------------------------------------------------------------------
-// <-- MUTATOR IMPLEMENTATION METHODS -->
-// -------------------------------------------------------------------
-
-// setHead() Implementation
-// Sets head variable to *headNode<value_type>
-template <class value_type>
-void LinkedList<value_type>::setHead(Node<value_type> *headNode)
+template <class data_type>
+void LinkedList<data_type>::setData(data_type newData)
 {
-    head = headNode;
-    head->setPrevious(NULL);
+	data = newData;
 }
 
-// setTail() Implementation
-// Sets tail variable to *tailNode<value_type>
-template <class value_type>
-void LinkedList<value_type>::setTail(Node<value_type> *tailNode)
+template <class data_type>
+int LinkedList<data_type>::getCount()
 {
-    tail = tailNode;
+	int count = 0;
+	setCurrent(HEAD);
+	while (CURRENT != NULL)
+	{
+		count++;
+		CURRENT = CURRENT->getNext();
+	}
+	numberOfNodes = count;
+	return count;
 }
 
-// setCurrent() Implementation
-// Sets current variable to *currentNode<value_type>
-template <class value_type>
-void LinkedList<value_type>::setCurrent(Node<value_type> *currentNode)
+template <class data_type>
+void LinkedList<data_type>::moveToHead(Node<data_type>* newHead)
 {
-    current = currentNode;
+	HEAD = newHead;
 }
 
-// add() Implementation
-// Adds a full card to the linked list by breaking the card down into individual cards and making them Node<value_type>s
-template <class value_type>
-void LinkedList<value_type>::addToTail(const value_type &card)
+
+//Main functions
+//This is where the main functions of the program are
+
+//Add Function
+//Precondition = Takes input of unchangeable type (value_type). Value_type and Inputstring must be valid
+//PostCondition = This function will convert Input string into words. Create a seiries of linked Nodes. Then input the words into the nodes.
+template <class data_type>
+void LinkedList<data_type>::add(const data_type &word)
 {
-    // Check if the head is NULL
-    if (numberOfNodes == 0)
-    {
-        // If there are no nodes in the LinkedList (i.e: start of list) make everything equal this new node.
-        tail = new Node<value_type>(card);
-        head = tail;
-        current = head;
-        numberOfNodes++;
-    }
-    else
-    {
-        // If there are nodes in the LinkedList (i.e: not the start of list) shuffle some stuff around
-        Node<value_type> *newNode = new Node<value_type>(card); // temp var
-        tail->setNext(newNode);                                 // tail's next = temp var
-        newNode->setPrevious(tail);                             // temp var prev = old tail
-        tail = newNode;                                         // tail = temp var
-        numberOfNodes++;                                        // increment numberOfNodes
-        newNode = NULL;                                         // stop those memory leaks
-    }
+	if (HEAD == NULL) // If a header has not been created, Create one
+	{
+		setCurrent(new Node<data_type>(word)); // SetCurrent selector to a new Node
+		moveToHead(CURRENT); // Make that Current Node the head 
+	}
+	else 
+	{
+		setCurrent(TAIL);
+		Node<data_type>* nodeTemp = new Node<data_type>(word); // Create a new Temp Node with the word data
+		CURRENT->setNext(nodeTemp); // Get the previous Current node and set it to next the new Node
+		nodeTemp->setPrev(CURRENT); // Set the previous to the old current Node
+		setCurrent(nodeTemp); // Set the new Node as current
+	} 
+
+
+	setTail(CURRENT); // After the while loop, current will be the the last Node.
 }
 
-// remove() Implementation
-// Returns full concatenated card store in the linked list
-template <class value_type>
-value_type LinkedList<value_type>::removeFromHead()
+
+template <class data_type>
+data_type LinkedList<data_type>::removeFromHead()
 {
-    Node<value_type> *tempNode;
-    value_type value;
-    tempNode = head;
-    head = tempNode->getNext();
-    if (head != NULL)
+	Node<data_type>* tempNode;
+    data_type value;
+    tempNode = HEAD;
+    HEAD = tempNode->getNext();
+    if (HEAD != NULL)
     {
         value = tempNode->getData();
-        head->setPrevious(NULL);
+        HEAD->setPrev(NULL);
     }
     else
     {
-        tail = NULL;
+        TAIL = NULL;
     }
     tempNode = NULL;
     numberOfNodes--;
     return value;
+}
+
+
+// A function to remove specific data from nodes
+// Precondition = Specific, working word to be removed.
+// Postcondition = Updates data with a new list with specific word/s removed.
+template <class data_type>
+void LinkedList<data_type>::remove(const data_type &word)
+{
+	// Empty pointer NODES
+	Node<data_type> *newCurrent; 
+	Node<data_type>* trailCurrent;
+	Node<data_type>* testCurrent = HEAD;
+
+
+	while (testCurrent != TAIL) // Until you are at the end of the Linked List
+	{
+		if (testCurrent->getData() == word) // If specific word is found
+		{
+			newCurrent = testCurrent; // new Current is equal to the old test Current
+
+			trailCurrent = newCurrent->getPrev(); // Trail current is set to 1 behind the new Current
+			
+			trailCurrent->setNext(newCurrent->getNext()); // Trail current set its next next to newcurrents
+			
+			trailCurrent = newCurrent->getNext(); // trail current is now the one in front of newcurrent
+			
+			trailCurrent->setPrev(newCurrent->getPrev()); // trail sets its previous to newcurrents old previous
+		
+
+			if(newCurrent->getNext() == NULL)   // if newcurrent was the tail, set the previous one to the tail
+			{
+				setTail(newCurrent->getPrev());
+			}
+			
+			testCurrent = testCurrent->getNext(); //Keep moving testCurrent and check again
+
+		}
+		else
+		{
+			testCurrent = testCurrent->getNext(); //Keep moving testCurrent and check again
+		}
+
+	}
+
+	if (testCurrent->getData() == word) // If the final word is testCurrents data
+	{
+		setTail(testCurrent->getPrev()); // set to tail
+		delete testCurrent; // Delete the Node
+		TAIL->setNext(NULL); // set the tails next to NULL
+	}
+}
+
+//Precondition = Input an object of type value_type
+//Postcondition = returns an integer of a specific count of how many times the word was used in this object.
+template <class data_type>
+int LinkedList<data_type>::count(const data_type &word)
+{
+	Node<data_type>* testCurrent; // Empty locator Node
+
+	testCurrent = HEAD; // Start at head
+
+	int count = 0; // count starts at 0
+	while (testCurrent->getNext() != NULL) // Whilst your not at the end of the list
+	{
+		if (testCurrent->getData() == word) // Check if word is in data
+		{
+			count++; // if it is add to the count
+		}
+		testCurrent = testCurrent->getNext(); // keep moving
+
+	}
+	return count; //return the count
+}
+
+//Operator Overloading
+
+//Precondition = Operator needs a valid linked list to output
+//Postcondition = returns the Data from all the nodes, compiled with spaces.
+template <class data_type>
+std::ostream &operator<<(std::ostream &os, const LinkedList<data_type> &ls)
+{
+    os << ls.getData(); // os is an OSTREAM object and ls.getdata get this objects data.
+    return os; // return the object
+}
+
+//Precondition = Inputs a valid linked list
+//Postcondition = appends a linked list to this current linked list. This works by adding the data from foreign linked list to this current object
+template <class data_type>
+LinkedList<data_type> &LinkedList<data_type>::operator+=(const LinkedList<data_type> &ls)
+{
+    add(ls.getData()); // Add this to the current dataset
+    return *this; // Return a pointer to this object
 }

@@ -1,60 +1,36 @@
-// Queue.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 19-10-2020
-// Description: Assignment 2 - Queue Header File
-
-#ifndef ASSIGNMENT_QUEUE
-#define ASSIGNMENT_QUEUE
+#ifndef NEW_QUEUE
+#define NEW_QUEUE
 
 #include <iostream>
+#include <fstream>
+#include "Card.h"
 #include "LinkedList.h"
 
 using namespace std;
 
-template <typename value_type>
-class Queue
+template <class data_type>
+class Queue 
 {
-public:
-    // -------------------------------------------------------------------
-    // <-- PUBLIC MEMBERS DEFINITION -->
-    // -------------------------------------------------------------------
+	public:
+		//Construct new Queue
+		Queue();
 
-    // Constructor Declaration
-    Queue();
+		//Destruct Queue
+		~Queue();
 
-    // Destructor Declaration
-    ~Queue();
+		void enqueue(const data_type& card);
+		data_type dequeue(); 
 
-    // Mutator function declarations
+		const int size();
+		bool is_empty() const;
+		data_type front();
+		string countDeck();
 
-    // Precondition: Queue is instantiated
-    // Postcondition: Enqueues Card in queue
-    void enqueue(const value_type &addCard);
+	private:
+		LinkedList<data_type>* data;
+		int count;
 
-    // Precondition: Queue is instantiated
-    // Postcondition: Dequeues Card in queue
-    Node<value_type> dequeue();
-
-    // Accessor function declaration
-
-    // Precondition: Next Queue has been set
-    // Postcondition: Returns nextQueue pointer variable
-    Node<value_type>* getFront();
-
-    // Precondition: Data has been set
-    // Postcondition: Returns nextQueue pointer variable
-    int getSize();
-
-    void showQueue();
-
-private:
-    // -------------------------------------------------------------------
-    // <-- PRIVATE MEMBERS DEFINITION -->
-    // -------------------------------------------------------------------
-    LinkedList<value_type> data;
-    int numberOfNodes; 
 };
 
 #include "Queue.hpp"
-
 #endif

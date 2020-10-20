@@ -1,97 +1,39 @@
-// Node.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 14-9-2020
-// Description: Assignment 1 - Node Header File
+//This defines a basic setup for a Nodes
+//Programmer: Joshua Elton
+//Last Modified 12/09/2020
+//This file should be used with LinkedList.cpp and Assignment 1 files
 
-#ifndef ASSIGNMENT_NODE
-#define ASSIGNMENT_NODE
-
-#include <iostream>
-
-#include"Card.h"
-
+//MACROGUARDS
+#ifndef NEW_NODE
+#define NEW_NODE
 using namespace std;
+#include <string> // Use string to define value_type
 
-template <class value_type>
+//Class template declaration
+template <class data_type>
 class Node
 {
-public:
-    // -------------------------------------------------------------------
-    // <-- CONSTRUCTORS DEFINITIONS -->
-    // -------------------------------------------------------------------
+	public:
+		
+		Node(); // Default constructor without parameters
+		Node(const data_type& newData); // Constructor with parameters
 
-    // Precondition:
-    // Postcondition: Node is created and implemented in Node.cpp.
-    Node();
+		~Node(); // De-constructor
 
-    // Precondition:
-    // Postcondition: Node is created and implemented in Node.cpp.
-    Node(const value_type &initialData);
+		//getters and setters
+		data_type getData () const;
+		Node<data_type>* getNext ();
+		Node<data_type>* getPrev ();
+		void setData(const data_type& newData);
+		void setNext (Node<data_type>* inputNext);
+		void setPrev (Node<data_type>* inputPrev);
 
-    /// -------------------------------------------------------------------
-    // <-- DESTRUCTOR DEFINITION -->
-    // -------------------------------------------------------------------
-
-    // Precondition:
-    // Postcondition: Node is destructed upon deletion
-    ~Node();
-
-    // -------------------------------------------------------------------
-    // <-- MUTATOR METHODS DEFINITION -->
-    // -------------------------------------------------------------------
-
-    // Precondition: Node has been instantiated
-    // Postcondition: Next node is set as a pointer to another node
-    void setNext(Node *nextNode);
-
-    // Precondition: Node has been instantiated
-    // Postcondition: previous node is set as a pointer to another node
-    void setPrevious(Node *previousNode);
-
-    // Precondition: Node has been instantiated
-    // Postcondition: Data contained in node is set as a value_type variable
-    void setData(const value_type &inputData);
-
-    // -------------------------------------------------------------------
-    // <-- ACCESSOR METHODS DEFINITIONS -->
-    // -------------------------------------------------------------------
-
-    // Decalaration of methods to get next node in linked list (both const and non-const)
-
-    // Precondition: Next node has been set
-    // Postcondition: Returns nextNode pointer variable
-    const Node *getNext() const;
-
-    // Precondition: Next node has been set
-    // Postcondition: Returns nextNode pointer variable
-    Node *getNext();
-
-    // Decalaration of methods to get previous node in linked list (both const and non-const)
-
-    // Precondition: Previous node has been set
-    // Postcondition: Returns nextNode pointer variable
-    const Node *getPrevious() const;
-
-    // Precondition: Previous node has been set
-    // Postcondition: Returns nextNode pointer variable
-    Node *getPrevious();
-
-    // Decalaration of methods to get data from current node in linked list
-
-    // Precondition: Data has been set
-    // Postcondition: Returns data type_def variable
-    value_type getData() const;
-
-private:
-    // -------------------------------------------------------------------
-    // <-- PRIVATE MEMBERS DEFINITION -->
-    // -------------------------------------------------------------------
-
-    value_type data; // Just the string stored within the node
-    Node *next;      // Pointer to a Node object - which is next in the list
-    Node *prev;      // Pointer to a Node object - which is previous in the list
+	//Private variables so they are unaccesable outside of the class
+	private:
+		data_type data;
+		Node<data_type>* next;
+		Node<data_type>* prev;
 };
 
-#include"Node.hpp"
-
-#endif
+#include "Node.hpp" //Includes the class template
+#endif //END OF MACROGUARD

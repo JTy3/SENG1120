@@ -1,114 +1,60 @@
-// Node.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 14-9-2020
-// Description: Assignment 1 - Node Implementation File
+//This defines a basic controls for a Nodes
+//Programmer: Joshua Elton
+//Last Modified 12/09/2020
+//This file should be used with LinkedList.cpp and Assignment 1 files
 
+//Include the .h file
 #include "Node.h"
+using namespace std;
 
-// -------------------------------------------------------------------
-// <-- CONSTRUCTOR IMPLEMENTATION METHODS -->
-// Initialise Node objects when given a string and when not
-// -------------------------------------------------------------------
-
-// Initialised with no data (empty node)
-template <class value_type>
-Node<value_type>::Node ()   {
-    // Set 'next' to NULL
-    next = NULL;
-    // Set 'prev' to NULL
-    prev = NULL;
-}
-
-// Initialised with data
-template <class value_type>
-Node<value_type>::Node (const value_type& initialData)  {
-    // Set 'data' to the memory dress of the parsed string
-    // Similar to function setData, this is so 'data' for this node remain persistent beyond it's call
-    data = initialData;
-    // Set 'next' pointer to NULL
-    next = NULL;
-    // Set 'prev' pointer to NULL
-    prev = NULL;
-}
-
-// -------------------------------------------------------------------
-// <-- DESTRUCTOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of Node object
-// -------------------------------------------------------------------
-template <class value_type>
-Node<value_type>::~Node()
+template <class data_type>
+Node<data_type>::Node ( const data_type& initialData ) // Default constructor
 {
-	// Set next and prev pointers to NULL to display something being in the destructor
-	next = NULL;
-    prev = NULL;
+
+	data = initialData;
+
+	next=NULL;
+	prev=NULL;
+}
+template <class data_type>
+Node<data_type>::~Node() // Deconstructor
+{
+	
 }
 
-// -------------------------------------------------------------------
-// <-- ACCESSOR IMPLEMENTATION METHODS -->
-// Getter methods for prev, next and data
-// -------------------------------------------------------------------
-
-// Get Data of current node
-template <class value_type>
-value_type Node<value_type>::getData () const
+template <class data_type>
+data_type Node<data_type>::getData ( ) const // getter / accesor
 {
-    return data;
+	return data;
 }
 
-// getNext() Initialisers
-// Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Non-const
-template <class value_type>
-Node<value_type>* Node<value_type>::getNext ()
+template <class data_type>
+Node<data_type>* Node<data_type>::getNext() // getter / accesor
 {
-    return next;
-}
-// Const
-template <class value_type>
-const Node<value_type>* Node<value_type>::getNext () const
-{
-    return next;
+	return next;
 }
 
-// getPrevious() Initialisers
-// Handle both const and non-const function calls - giving the compiler the ability to figure out which is best to use
-// Non-const
-template <class value_type>
-Node<value_type>* Node<value_type>::getPrevious ()
+template <class data_type>
+Node<data_type>* Node<data_type>::getPrev() // getter / accesor
 {
-    return prev;
-}
-// Const
-template <class value_type>
-const Node<value_type>* Node<value_type>::getPrevious () const
-{
-    return prev;
+	return prev;
 }
 
-// -------------------------------------------------------------------
-// <-- MUTATOR IMPLEMENTATION METHODS -->
-// Setter methods for prev, next and data
-// -------------------------------------------------------------------
-
-// Same as initialising with a value setData needs to reference the memory address of the argument for data persistence
-template <class value_type>
-void Node<value_type>::setData ( const value_type& inputData )
+template <class data_type>
+void Node<data_type>::setData(const data_type& newData) // setter / mutator
 {
-    data = inputData;
+	data = newData;
 }
 
-// Setting the next node in the linked list
-template <class value_type>
-void Node<value_type>::setNext ( Node<value_type>* inputNext )
+template <class data_type>
+void Node<data_type>::setNext (Node<data_type>* inputNext) // setter / mutator
 {
-    // Sets the 'next' Node pointer to the parsed argument
 	next = inputNext;
 }
 
-// Setting the previous node in the linked list
-template <class value_type>
-void Node<value_type>::setPrevious ( Node<value_type>* inputNext )
+template <class data_type>
+void Node<data_type>::setPrev (Node<data_type>* inputPrev) // setter / mutator
 {
-    // Sets the 'prev' Node pointer to the parsed argument
-	next = inputNext;
+	prev = inputPrev;
 }
+

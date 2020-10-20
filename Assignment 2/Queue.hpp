@@ -1,66 +1,67 @@
-// Queue.hpp
-// Author: Jacob Tye (Git: JTy3)
-// Date: 19-10-2020
-// Description: Assignment 2 - Queue Implementation File
-
 #include "Queue.h"
 
-// -------------------------------------------------------------------
-// <-- CONSTRUCTOR IMPLEMENTATION METHOD -->
-// -------------------------------------------------------------------
+using namespace std;
 
-template <typename value_type>
-Queue<value_type>::Queue()
+template <class data_type>
+Queue<data_type>::Queue()
 {
-    LinkedList<value_type> *data = new LinkedList<value_type>();
-    numberOfNodes = data->getSize();
+	data = new LinkedList<Card>();
+	count = 0;
 }
 
-// -------------------------------------------------------------------
-// <-- DESTRUCTOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of Queue object
-// -------------------------------------------------------------------
-template <typename value_type>
-Queue<value_type>::~Queue()
+template <class data_type>
+Queue<data_type>::~Queue()
 {
-    // Similar to how my destructor is written for Node I am just setting all pointers to NULL here so the destructor is holding a value
-    numberOfNodes = 0;
+	delete data;
+	count = 0;
 }
 
-// -------------------------------------------------------------------
-// <-- MUTATOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of Queue object
-// -------------------------------------------------------------------
-
-template <typename value_type>
-void Queue<value_type>::enqueue(const value_type &addCard)
+template <class data_type>
+void Queue<data_type>::enqueue(const data_type& card) 
 {
-    data.addToTail(addCard);
-    numberOfNodes = data.getSize();
+	++count;
+	//Create a node first with data as card
+	data->add(card); //Might cause problem with adding a new head
 }
 
-template <typename value_type>
-Node<value_type> Queue<value_type>::dequeue()
+template <class data_type>
+data_type Queue<data_type>::dequeue() 
 {
-    Node<value_type> removedCard = data.removeFromHead();
-    numberOfNodes = data.getSize();
-    return removedCard;
+	--count;
+	return data->removeFromHead(); //might not woork as getTail might return node instead of data.value, Where as remove is looking for data value
 }
 
-template <typename value_type>
-Node<value_type>* Queue<value_type>::getFront()
+template <class data_type>
+data_type Queue<data_type>::front() 
 {
-    return data.getHead();
+	return data->getTail()->getData();
 }
 
-template <typename value_type>
-int Queue<value_type>::getSize()
+template <class data_type>
+bool Queue<data_type>::is_empty() const
 {
-    return data->getSize();
+	if (count == 0) {return true;}
+	else{return false;}
 }
 
-template <typename value_type>
-void Queue<value_type>::showQueue()
+template <class data_type>
+const int Queue<data_type>::size()
 {
-    data.showHand();
+	return count;
 }
+
+template <class data_type>
+string Queue<data_type>::countDeck()
+{
+	data->setCurrent(data->getHead());
+	while(data->getCurrent()->getNext() != NULL)
+	{
+		cout << data->getCurrent()->getData();
+		data->setCurrent(data->getCurrent()->getNext());
+	}
+	string end = "";
+	return end;
+}
+
+
+

@@ -1,49 +1,30 @@
-// DeckOfCards.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 19-10-2020
-// Description: Assignment 2 - DeckOfCards Header File
+#ifndef CARDDECK
+#define CARDDECK
 
-#ifndef ASSIGNMENT_DECK
-#define ASSIGNMENT_DECK
-
-#include <iostream>
 #include "Queue.h"
+#include "Card.h"
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
 
 using namespace std;
-
 class DeckOfCards
 {
 public:
-    // -------------------------------------------------------------------
-    // <-- PUBLIC MEMBERS DEFINITION -->
-    // -------------------------------------------------------------------
+	DeckOfCards(); //Constructor
 
-    // Constructor Declaration
-    DeckOfCards();
+	~DeckOfCards(); // Destructor
 
-    // Destructor Declaration
-    ~DeckOfCards();
+	void shuffle();
 
-    // Mutator Methods
+	Card draw(); 
 
-    // Called to draw a card from the deck
-    Node<Card> draw();
-
-    // Called to shuffle an exisiting deck of cards
-    void shuffle();
-
-    void showDeck();
-
-    // Accessor function for Queue
-    string listOfCards();
+	Queue<Card> *getdata();
 
 private:
-    // -------------------------------------------------------------------
-    // <-- PRIVATE MEMBERS DEFINITION -->
-    // -------------------------------------------------------------------
-    Queue<Card> data;
+	Queue<Card> *data;
 };
 
-ostream &operator<<(ostream &out, DeckOfCards &deck);   // Overriding cout operator
+std::ostream &operator<<(std::ostream &strm, DeckOfCards &cards);
 
 #endif

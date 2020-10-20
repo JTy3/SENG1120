@@ -1,52 +1,132 @@
-// DeckOfCards.h
-// Author: Jacob Tye (Git: JTy3)
-// Date: 14-9-2020
-// Description: Assignment 1 - DeckOfCards Implementation File
-
 #include "DeckOfCards.h"
 
-// -------------------------------------------------------------------
-// <-- CONSTRUCTOR IMPLEMENTATION METHODS -->
-// Initialise DeckOfCards objects when given a string and when not
-// -------------------------------------------------------------------
+using namespace std;
 
-// Initialised with data
 DeckOfCards::DeckOfCards()
 {
-    Card tempCard;
-    for (int i = 0; i < 10; i++)
-    {
-        string stringValue = "Number" + i;
-        tempCard.setFace(stringValue);
-        data.enqueue(tempCard);
-    }
-}
+	data = new Queue<Card>();
+	string cardNumbers[13] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+	string cardSuites[4] = {"D", "H", "S", "C"};
+	Card *tempCard = new Card();
 
-// -------------------------------------------------------------------
-// <-- DESTRUCTOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of DeckOfCards object
-// -------------------------------------------------------------------
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 13; j++)
+		{
+			tempCard->setFace(cardNumbers[j] + "-" + cardSuites[i]);
+			if (cardNumbers[j] == "J" || cardNumbers[j] == "Q" || cardNumbers[j] == "K")
+				tempCard->setValue(10);
+			else if (cardNumbers[j] == "A")
+				tempCard->setValue(11);
+			else
+				tempCard->setValue(atoi(cardNumbers[j].c_str()));
+			tempCard->setFaceUp(false);
+			data->enqueue(*tempCard);
+		}
+	}
+
+	delete tempCard;
+}
 
 DeckOfCards::~DeckOfCards()
 {
+	data = NULL;
 }
 
-// -------------------------------------------------------------------
-// <-- MUTATOR IMPLEMENTATION METHOD -->
-// Automatically invoked upon out of scope or deleted instance of Queue object
-// -------------------------------------------------------------------
-
-Node<Card> DeckOfCards::draw()
+void DeckOfCards::shuffle()
 {
-    return data.dequeue();
+	Queue<Card> *shuffle_group_1 = new Queue<Card>();
+	Queue<Card> *shuffle_group_2 = new Queue<Card>();
+	Queue<Card> *shuffle_group_3 = new Queue<Card>();
+	Queue<Card> *shuffle_group_4 = new Queue<Card>();
+
+	int i = 0;
+	int count = data->size();
+
+	while (i < 13)
+	{
+		shuffle_group_1->enqueue(data->dequeue());
+		i++;
+	}
+	while (i < 26)
+	{
+		shuffle_group_2->enqueue(data->dequeue());
+		i++;
+	}
+	while (i < 39)
+	{
+		shuffle_group_3->enqueue(data->dequeue());
+		i++;
+	}
+	while (i < 52)
+	{
+		shuffle_group_4->enqueue(data->dequeue());
+		i++;
+	}
+
+	int randomNum;
+
+	for (int j = 0; j < 1000; j++)
+	{
+		randomNum = rand() % 4 + 1;
+		if ((randomNum == 1))
+		{
+			shuffle_group_2->enqueue(shuffle_group_1->dequeue());
+			shuffle_group_1->enqueue(shuffle_group_2->dequeue());
+		}
+		else if ((randomNum == 2))
+		{
+			shuffle_group_3->enqueue(shuffle_group_2->dequeue());
+			shuffle_group_2->enqueue(shuffle_group_3->dequeue());
+		}
+		else if ((randomNum == 3))
+		{
+			shuffle_group_4->enqueue(shuffle_group_3->dequeue());
+			shuffle_group_3->enqueue(shuffle_group_4->dequeue());
+		}
+		else
+		{
+			shuffle_group_1->enqueue(shuffle_group_4->dequeue());
+			shuffle_group_4->enqueue(shuffle_group_1->dequeue());
+		}
+	}
+
+	i = 0;
+
+	while (i < 13)
+	{
+		data->enqueue(shuffle_group_4->dequeue());
+		i++;
+	}
+	while (i < 26)
+	{
+		data->enqueue(shuffle_group_3->dequeue());
+		i++;
+	}
+	while (i < 39)
+	{
+		data->enqueue(shuffle_group_2->dequeue());
+		i++;
+	}
+	while (i < 52)
+	{
+		data->enqueue(shuffle_group_1->dequeue());
+		i++;
+	}
 }
 
-void DeckOfCards::showDeck()
+Card DeckOfCards::draw()
 {
-    data.showQueue();
+	return data->dequeue();
 }
 
-ostream &operator<<(ostream &out, DeckOfCards &DeckOfCards)
+Queue<Card> *DeckOfCards::getdata()
 {
-    DeckOfCards.showDeck();
+	return data;
+}
+
+std::ostream &operator<<(std::ostream &strm, DeckOfCards &cards)
+{
+	strm << cards.getdata()->countDeck();
+	return strm;
 }
