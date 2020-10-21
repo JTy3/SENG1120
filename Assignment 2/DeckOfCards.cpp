@@ -76,7 +76,7 @@ void DeckOfCards::shuffle()
 	/* I had to seed the rng otherwise I was getting the same numbers every time it compiled */
 	srand(time(NULL));
 
-	for (int j = 0; j < 100; j++)
+	for (int j = 0; j < 1000; j++)
 	{
 
 		randomNum = rand() % 4 + 1;
