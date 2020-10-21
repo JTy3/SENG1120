@@ -23,13 +23,34 @@ HandOfCards::~HandOfCards()
 // Counts the total value of all face up cards
 int HandOfCards::count()
 {
-    return hand.queueValue();
+    // Count the total value
+    int totalValue = 0;
+    // Set temp node to be the head of the list
+    Node<Card>* tempNode = hand.front();
+    for(int i = 0; i < hand.size(); i++)
+    {
+        if((tempNode->getData().getFaceUp()) == true)
+        {
+            totalValue += tempNode->getData().getValue();
+        }
+        tempNode = tempNode->getNext();
+    }
+    return totalValue;
 }
 
 // Counts the total value of all cards
 int HandOfCards::countAll()
 {
-    return hand.queueValue();
+    // Count the total value
+    int totalValue = 0;
+    // Set temp node to be the head of the list
+    Node<Card>* tempNode = hand.front();
+    for(int i = 0; i < hand.size(); i++)
+    {
+        totalValue += tempNode->getData().getValue();
+        tempNode = tempNode->getNext();
+    }
+    return totalValue;
 }
 
 // Returns a string to print for all cards in the hand

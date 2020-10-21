@@ -57,17 +57,9 @@ data_type Queue<data_type>::dequeue()
 
 // Returns the data from the front of the queue
 template <class data_type>
-data_type Queue<data_type>::front() 
+Node<data_type>* Queue<data_type>::front() 
 {
-	return data->getHead()->getData();
-}
-
-// Checks if queue is empty
-template <class data_type>
-bool Queue<data_type>::is_empty() const
-{
-	if (count == 0) {return true;}
-	else{return false;}
+	return data->getHead();
 }
 
 // Returns the size of the queue
@@ -75,13 +67,6 @@ template <class data_type>
 const int Queue<data_type>::size()
 {
 	return count;
-}
-
-// Lists out the value of the queue
-template <class data_type>
-int Queue<data_type>::queueValue()
-{
-	return data->getListValue();
 }
 
 template <class data_type>

@@ -39,9 +39,7 @@ public:
 	// <-- ACCESSOR METHODS DEFINITION -->
 	// -------------------------------------------------------------------
 	const int size();
-	int queueValue();
-	bool is_empty() const;
-	data_type front();
+	Node<data_type>* front();
 	string countDeck();
 
 private:
