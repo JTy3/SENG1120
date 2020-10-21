@@ -1,7 +1,13 @@
+// DeckOfCards.cpp
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - DeckOfCards Implementation File
+
 #include "DeckOfCards.h"
 
 using namespace std;
 
+//Constructor Implementation
 DeckOfCards::DeckOfCards()
 {
 	data = new Queue<Card>();
@@ -28,11 +34,13 @@ DeckOfCards::DeckOfCards()
 	delete tempCard;
 }
 
+//Destructor Implementation
 DeckOfCards::~DeckOfCards()
 {
 	data = NULL;
 }
 
+// Shuffle function to randomly shuffle the cards
 void DeckOfCards::shuffle()
 {
 	Queue<Card> *shuffle_group_1 = new Queue<Card>();
@@ -117,11 +125,13 @@ void DeckOfCards::shuffle()
 	}
 }
 
+// Returns card at the front of the queue
 Card DeckOfCards::draw()
 {
 	return data->dequeue();
 }
 
+// Returns the Queue
 Queue<Card> *DeckOfCards::getdata()
 {
 	return data;

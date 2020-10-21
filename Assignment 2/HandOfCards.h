@@ -1,3 +1,9 @@
+// HandOfCards.h
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - HandOfCards Header File
+
+// Add macroguard / libs / namespace
 #ifndef CARDHAND
 #define CARDHAND
 
@@ -11,24 +17,34 @@ using namespace std;
 class HandOfCards
 {
 public:
-	HandOfCards(); //Constructor
+    // -------------------------------------------------------------------
+    // <-- CONSTRUCTORS DEFINITIONS -->
+    // -------------------------------------------------------------------
+    HandOfCards();
 
-	~HandOfCards(); // Destructor
+    // -------------------------------------------------------------------
+    // <-- DESTRUCTOR DEFINITIONS -->
+    // -------------------------------------------------------------------
+    ~HandOfCards();
 
-	int count();
-
+    // -------------------------------------------------------------------
+	// <-- ACCESSOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
+    int count();
     int countAll();
-
     string value();
 
+    // -------------------------------------------------------------------
+	// <-- MUTATOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
     void faceUp();
-
     void add(Card card, const bool faceUp);
 
 private:
-	Queue<Card> hand;
+    Queue<Card> hand;
 };
 
+// Cout operator overloading
 std::ostream &operator<<(std::ostream &strm, HandOfCards &cards);
 
 #endif

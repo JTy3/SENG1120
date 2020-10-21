@@ -1,3 +1,9 @@
+// DeckOfCards.h
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - DeckOfCards Header File
+
+// Add macroguard / libs / namespace
 #ifndef CARDDECK
 #define CARDDECK
 
@@ -8,23 +14,36 @@
 #include <cstdlib>
 
 using namespace std;
+
 class DeckOfCards
 {
 public:
-	DeckOfCards(); //Constructor
+	// -------------------------------------------------------------------
+	// <-- CONSTRUCTORS DEFINITIONS -->
+	// -------------------------------------------------------------------
+	DeckOfCards();
 
-	~DeckOfCards(); // Destructor
+	/// -------------------------------------------------------------------
+	// <-- DESTRUCTOR DEFINITION -->
+	// -------------------------------------------------------------------
+	~DeckOfCards();
 
+	// -------------------------------------------------------------------
+	// <-- MUTATOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
 	void shuffle();
-
-	Card draw(); 
-
+	
+	// -------------------------------------------------------------------
+	// <-- ACCESSOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
+	Card draw();
 	Queue<Card> *getdata();
 
 private:
 	Queue<Card> *data;
 };
 
+// Cout operator overloading
 std::ostream &operator<<(std::ostream &strm, DeckOfCards &cards);
 
 #endif

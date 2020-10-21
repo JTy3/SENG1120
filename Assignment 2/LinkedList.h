@@ -4,8 +4,8 @@
 // Description: Assignment 2 - Linked List Header File
 
 // Add macroguard / libs / namespace
-#ifndef NEW_LINKED_LIST
-#define NEW_LINKED_LIST
+#ifndef ASSIGNMENT_LINKED_LIST
+#define ASSIGNMENT_LINKED_LIST
 
 #include <iostream>
 #include <sstream>
@@ -39,15 +39,12 @@ public:
 	void setCurrent(Node<data_type> *newCurrent);
 	void setHead(const data_type &data);
 	void setTail(Node<data_type> *newTail);
-	void setData(data_type &newData);
-	void moveToHead(Node<data_type> *newHead);
 	data_type removeFromHead();
 
 	// -------------------------------------------------------------------
 	// <-- ACCESSOR METHODS DEFINITIONS -->
 	// -------------------------------------------------------------------
 
-	data_type &getData() const;
 	Node<data_type> *getHead();
 	Node<data_type> *getTail();
 	Node<data_type> *getNext();
@@ -60,17 +57,12 @@ private:
 	// -------------------------------------------------------------------
 	// <-- PRIVATE MEMBERS DEFINITION -->
 	// -------------------------------------------------------------------
-	data_type data;
 	Node<data_type> *node;
-	Node<data_type> *CURRENT;
-	Node<data_type> *HEAD;
-	Node<data_type> *TAIL;
+	Node<data_type> *current;
+	Node<data_type> *head;
+	Node<data_type> *tail;
 	int numberOfNodes;
 };
-
-// Cout operator overloading
-template <class data_type>
-std::ostream &operator<<(std::ostream &os, const LinkedList<data_type> &ll);
 
 #include "LinkedList.hpp"
 #endif

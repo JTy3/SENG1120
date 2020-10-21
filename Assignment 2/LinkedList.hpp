@@ -1,189 +1,184 @@
-// Node.hpp
+// LinkedList.hpp
 // Author: Jacob Tye (Git: JTy3)
 // Date: 21-10-2020
-// Description: Assignment 2 - Node class template implementation File
+// Description: Assignment 2 - LinkedList class template implementation File
 
+// Add libs / namespace
 #include "LinkedList.h"
 
 using namespace std;
 
+// -------------------------------------------------------------------
+// <-- CONSTRUCTOR IMPLEMENTATION METHODS -->
+// Initialise Node objects when given a string and when not
+// -------------------------------------------------------------------
+
 template <class data_type>
-//Constructor
 LinkedList<data_type>::LinkedList()
 {
-	//Set all values to NULL upon creating a new list
-	HEAD = NULL;	//The node which is at the start of the Linked List
-	TAIL = NULL;	//The node which is at the End of the Linked List
-	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
+	// Create an empty linked list
+	head = NULL;
+	tail = NULL;
+	current = NULL;
 }
 
 template <class data_type>
 LinkedList<data_type>::LinkedList(data_type &node)
 {
-	HEAD = NULL;	//The node which is at the start of the Linked List
-	TAIL = NULL;	//The node which is at the End of the Linked List
-	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
+	// Create an empty linked list and then immediately add the parsed var to tail
+	// This is to simulate a queue
+	// Data will enter from the back - and will leave from the front
+	head = NULL;
+	tail = NULL;	
+	current = NULL; 
 	addToTail(node);
 }
 
-//Deconstructor
+// -------------------------------------------------------------------
+// <-- DESTRUCTOR IMPLEMENTATION METHOD -->
+// Automatically invoked upon out of scope or deleted instance of Node object
+// -------------------------------------------------------------------
+
 template <class data_type>
 LinkedList<data_type>::~LinkedList()
 {
-	HEAD = NULL;
-	TAIL = NULL;
-	CURRENT = NULL;
+	// NULL out the linked list so it no longer exists
+	head = NULL;
+	tail = NULL;
+	current = NULL;
 }
 
-//Getters And Setters (Mutator/Acessor Methods)
+// -------------------------------------------------------------------
+// <-- ACCESSOR IMPLEMENTATION METHODS -->
+// Getter methods for prev, next and data
+// -------------------------------------------------------------------
+
 template <class data_type>
 Node<data_type> *LinkedList<data_type>::getHead()
 {
-	return HEAD;
+	return head;
 }
 
 template <class data_type>
 Node<data_type> *LinkedList<data_type>::getTail()
 {
-	return TAIL;
+	return tail;
 }
 
 template <class data_type>
 Node<data_type> *LinkedList<data_type>::getCurrent()
 {
-	return CURRENT;
+	return current;
 }
 template <class data_type>
 Node<data_type> *LinkedList<data_type>::getNext()
 {
-	return CURRENT->getNext();
+	return current->getNext();
 }
 
-template <class data_type>
-data_type &LinkedList<data_type>::getData() const //Using LinkedList::Value_type to reference the valuetype specified in Node
-{
-	return data;
-}
+// -------------------------------------------------------------------
+// <-- MUTATOR IMPLEMENTATION METHODS -->
+// -------------------------------------------------------------------
 
+// Setter methods
 template <class data_type>
 void LinkedList<data_type>::setCurrent(Node<data_type> *newCurrent)
 {
-	CURRENT = newCurrent;
+	current = newCurrent;
 }
 
 template <class data_type>
 void LinkedList<data_type>::setHead(const data_type &data)
 {
 	setCurrent(new Node<data_type>(data));
-	CURRENT->setNext(HEAD);
-	HEAD->setPrev(CURRENT);
-	HEAD = CURRENT;
-	HEAD->setPrev(NULL); // Makes sure It is the previous node
+	current->setNext(head);
+	head->setPrev(current);
+	head = current;
+	head->setPrev(NULL);
 }
 
 template <class data_type>
 void LinkedList<data_type>::setTail(Node<data_type> *newTail)
 {
-	TAIL = newTail;
-	TAIL->setNext(NULL);
+	tail = newTail;
+	tail->setNext(NULL);
 }
 
-template <class data_type>
-void LinkedList<data_type>::setData(data_type &newData)
-{
-	data = newData;
-}
-
+// Get number of nodes from linked list
 template <class data_type>
 int LinkedList<data_type>::getCount()
 {
 	int count = 0;
-	setCurrent(HEAD);
-	while (CURRENT != NULL)
+	setCurrent(head);
+	while (current != NULL)
 	{
 		count++;
-		CURRENT = CURRENT->getNext();
+		current = current->getNext();
 	}
 	numberOfNodes = count;
 	return count;
 }
 
+// Get the total value of the linked list
 template <class data_type>
 int LinkedList<data_type>::getListValue()
 {
 	int count = 0;
-	setCurrent(HEAD);
-	while (CURRENT->getNext() != NULL)
+	setCurrent(head);
+	while (current->getNext() != NULL)
 	{
-		count += CURRENT->getData().getValue();
-		CURRENT = CURRENT->getNext();
+		count += current->getData().getValue();
+		current = current->getNext();
 	}
 
-	if (TAIL != NULL)
+	if (tail != NULL)
 	{
-		count += TAIL->getData().getValue();
+		count += tail->getData().getValue();
 	}
 
 	return count;
 }
 
-template <class data_type>
-void LinkedList<data_type>::moveToHead(Node<data_type> *newHead)
-{
-	HEAD = newHead;
-}
-
-//Main functions
-//This is where the main functions of the program are
-
-//addToTail Function
-//Precondition = Takes input of unchangeable type (value_type). Value_type and Inputstring must be valid
-//PostCondition = This function will convert Input string into cards. Create a seiries of linked Nodes. Then input the cards into the nodes.
+// Add a node to the tail of linked list
 template <class data_type>
 void LinkedList<data_type>::addToTail(const data_type &card)
 {
-	if (HEAD == NULL) // If a header has not been created, Create one
+	if (head == NULL) 
 	{
-		setCurrent(new Node<data_type>(card)); // SetCurrent selector to a new Node
-		moveToHead(CURRENT);				   // Make that Current Node the head
+		setCurrent(new Node<data_type>(card));
+		head = current;			   
 	}
 	else
 	{
-		setCurrent(TAIL);
-		Node<data_type> *nodeTemp = new Node<data_type>(card); // Create a new Temp Node with the card data
-		CURRENT->setNext(nodeTemp);							   // Get the previous Current node and set it to next the new Node
-		nodeTemp->setPrev(CURRENT);							   // Set the previous to the old current Node
-		setCurrent(nodeTemp);								   // Set the new Node as current
+		setCurrent(tail);
+		Node<data_type> *nodeTemp = new Node<data_type>(card); 
+		current->setNext(nodeTemp);						
+		nodeTemp->setPrev(current);						
+		setCurrent(nodeTemp);								
 	}
 
-	setTail(CURRENT); // After the while loop, current will be the the last Node.
+	setTail(current); 
 }
 
+// Remove a node from the head of the linked list and return it's contents to the caller
 template <class data_type>
 data_type LinkedList<data_type>::removeFromHead()
 {
 	Node<data_type> *tempNode;
 	data_type value;
-	tempNode = HEAD;
-	HEAD = tempNode->getNext();
-	if (HEAD != NULL)
+	tempNode = head;
+	head = tempNode->getNext();
+	if (head != NULL)
 	{
 		value = tempNode->getData();
-		HEAD->setPrev(NULL);
+		head->setPrev(NULL);
 	}
 	else
 	{
 		value = tempNode->getData();
-		TAIL = NULL;
+		tail = NULL;
 	}
 	tempNode = NULL;
 	numberOfNodes--;
 	return value;
-}
-
-template <class data_type>
-std::ostream &operator<<(std::ostream &os, const LinkedList<data_type> &ls)
-{
-	os << ls.getData();
-	return os;
 }

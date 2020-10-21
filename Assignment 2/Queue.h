@@ -1,5 +1,11 @@
-#ifndef NEW_QUEUE
-#define NEW_QUEUE
+// Queue.h
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - Queue Header File
+
+// Add macroguard / libs / namespace
+#ifndef ASSIGNMENT_QUEUE
+#define ASSIGNMENT_QUEUE
 
 #include <iostream>
 #include <fstream>
@@ -8,29 +14,42 @@
 
 using namespace std;
 
+//Class template declaration
 template <class data_type>
-class Queue 
+class Queue
 {
-	public:
-		//Construct new Queue
-		Queue();
+public:
+	// -------------------------------------------------------------------
+	// <-- CONSTRUCTORS DEFINITIONS -->
+	// -------------------------------------------------------------------
+	Queue();
 
-		//Destruct Queue
-		~Queue();
+	/// -------------------------------------------------------------------
+	// <-- DESTRUCTOR DEFINITION -->
+	// -------------------------------------------------------------------
+	~Queue();
 
-		void enqueue(const data_type& card);
-		data_type dequeue(); 
+	// -------------------------------------------------------------------
+	// <-- MUTATOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
+	void enqueue(const data_type &card);
+	data_type dequeue();
 
-		const int size();
-		int queueValue();
-		bool is_empty() const;
-		data_type front();
-		string countDeck();
+	// -------------------------------------------------------------------
+	// <-- ACCESSOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
+	const int size();
+	int queueValue();
+	bool is_empty() const;
+	data_type front();
+	string countDeck();
 
-	private:
-		LinkedList<data_type>* data;
-		int count;
-
+private:
+	// -------------------------------------------------------------------
+	// <-- PRIVATE MEMBERS DEFINITION -->
+	// -------------------------------------------------------------------
+	LinkedList<data_type> *data;
+	int count;
 };
 
 #include "Queue.hpp"
