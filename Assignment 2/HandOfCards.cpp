@@ -13,11 +13,9 @@ HandOfCards::HandOfCards()
     Queue<Card> hand;
 }
 
-
 // Destructor Implementation
 HandOfCards::~HandOfCards()
 {
-
 }
 
 // Counts the total value of all face up cards
@@ -26,10 +24,10 @@ int HandOfCards::count()
     // Count the total value
     int totalValue = 0;
     // Set temp node to be the head of the list
-    Node<Card>* tempNode = hand.front();
-    for(int i = 0; i < hand.size(); i++)
+    Node<Card> *tempNode = hand.front();
+    for (int i = 0; i < hand.size(); i++)
     {
-        if((tempNode->getData().getFaceUp()) == true)
+        if ((tempNode->getData().getFaceUp()) == true)
         {
             totalValue += tempNode->getData().getValue();
         }
@@ -44,8 +42,8 @@ int HandOfCards::countAll()
     // Count the total value
     int totalValue = 0;
     // Set temp node to be the head of the list
-    Node<Card>* tempNode = hand.front();
-    for(int i = 0; i < hand.size(); i++)
+    Node<Card> *tempNode = hand.front();
+    for (int i = 0; i < hand.size(); i++)
     {
         totalValue += tempNode->getData().getValue();
         tempNode = tempNode->getNext();
@@ -56,12 +54,35 @@ int HandOfCards::countAll()
 // Returns a string to print for all cards in the hand
 string HandOfCards::value()
 {
-    return hand.countDeck();
+    // Count the total value
+    string showHand = "";
+    // Set temp node to be the head of the list
+    Node<Card> *tempNode = hand.front();
+    for (int i = 0; i < hand.size(); i++)
+    {
+        if ((tempNode->getData().getFaceUp()) == false)
+        {
+            showHand += "?-? ";
+        }
+        else
+        {
+            showHand += tempNode->getData().getFace() + " ";
+        }
+        tempNode = tempNode->getNext();
+    }
+    return showHand;
 }
 
 // Makes all cards in a hand face up
 void HandOfCards::faceUp()
 {
+    // Set temp node to be the head of the list
+    Node<Card> *tempNode = hand.front();
+    for (int i = 0; i < hand.size(); i++)
+    {
+        tempNode->getData().setFaceUp(true);
+        tempNode = tempNode->getNext();
+    }
 }
 
 // Adds a card to the hand
@@ -73,6 +94,6 @@ void HandOfCards::add(Card card, const bool faceUp)
 
 std::ostream &operator<<(std::ostream &strm, HandOfCards &deck)
 {
-	strm << deck.value() << "(" << deck.count() << " points)";
-	return strm;
+    strm << deck.value() << "(" << deck.count() << " points)";
+    return strm;
 }
