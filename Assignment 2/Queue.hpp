@@ -20,7 +20,7 @@ template <class data_type>
 void Queue<data_type>::enqueue(const data_type& card) 
 {
 	++count;
-	data->add(card);
+	data->addToTail(card);
 }
 
 template <class data_type>

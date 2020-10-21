@@ -1,39 +1,52 @@
+// Card.h
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - Card Header File
 
-//MacroGuards
-#ifndef NEW_CARD
-#define NEW_CARD
+// Add macroguard / libs / namespace
+#ifndef ASSIGNMENT_CARD
+#define ASSIGNMENT_CARD
 
-//Libraries
 #include <sstream>
-
-//Namespace
 using namespace std;
 
-//Class Decleration
 class Card
 {
-	public:
-		//Constructor
-		Card();
-		//De-Constructor
-		~Card();
+public:
 
-		//Setters
-		void setFace(string newFace);
-		void setFaceUp(bool newFaceUp);
-		void setValue(int newValue);
+	// -------------------------------------------------------------------
+	// <-- CONSTRUCTORS DEFINITIONS -->
+	// -------------------------------------------------------------------
+	Card();
 
-		//Getters
-		string getFace();
-		int getValue();
-		bool getFaceUp();
+	/// -------------------------------------------------------------------
+	// <-- DESTRUCTOR DEFINITION -->
+	// -------------------------------------------------------------------
+	~Card();
 
-	private:
-		string face;
-		int value;
-		bool faceUp;
+	// -------------------------------------------------------------------
+	// <-- MUTATOR METHODS DEFINITION -->
+	// -------------------------------------------------------------------
+	void setFace(string newFace);
+	void setFaceUp(bool newFaceUp);
+	void setValue(int newValue);
 
+	// -------------------------------------------------------------------
+	// <-- ACCESSOR METHODS DEFINITIONS -->
+	// -------------------------------------------------------------------
+	string getFace();
+	int getValue();
+	bool getFaceUp();
+
+private:
+	// -------------------------------------------------------------------
+	// <-- PRIVATE MEMBERS DEFINITION -->
+	// -------------------------------------------------------------------
+	string face;
+	int value;
+	bool faceUp;
 };
-//Operator overloading (grab ostream from std namespace)
+
+// Cout operator overloading
 std::ostream &operator<<(std::ostream &os, Card card);
 #endif

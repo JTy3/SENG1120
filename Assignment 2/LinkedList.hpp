@@ -1,30 +1,29 @@
-//This defines a basic controls for a linked list
-//Programmer: Joshua Elton
-//Last Modified 16/09/2020
-//This file should be used with LinkedList.cpp and Assignment 1 files
+// Node.hpp
+// Author: Jacob Tye (Git: JTy3)
+// Date: 21-10-2020
+// Description: Assignment 2 - Node class template implementation File
 
 #include "LinkedList.h"
 
 using namespace std;
-
 
 template <class data_type>
 //Constructor
 LinkedList<data_type>::LinkedList()
 {
 	//Set all values to NULL upon creating a new list
-	HEAD = NULL; //The node which is at the start of the Linked List
-	TAIL = NULL; //The node which is at the End of the Linked List
+	HEAD = NULL;	//The node which is at the start of the Linked List
+	TAIL = NULL;	//The node which is at the End of the Linked List
 	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
 }
 
 template <class data_type>
-LinkedList<data_type>::LinkedList(data_type& node)
+LinkedList<data_type>::LinkedList(data_type &node)
 {
-	HEAD = NULL; //The node which is at the start of the Linked List
-	TAIL = NULL; //The node which is at the End of the Linked List
+	HEAD = NULL;	//The node which is at the start of the Linked List
+	TAIL = NULL;	//The node which is at the End of the Linked List
 	CURRENT = NULL; // The Node Which is used to point and move through other Nodes
-	add(node);
+	addToTail(node);
 }
 
 //Deconstructor
@@ -38,42 +37,42 @@ LinkedList<data_type>::~LinkedList()
 
 //Getters And Setters (Mutator/Acessor Methods)
 template <class data_type>
-Node<data_type>* LinkedList<data_type>::getHead()
+Node<data_type> *LinkedList<data_type>::getHead()
 {
 	return HEAD;
 }
 
 template <class data_type>
-Node<data_type>* LinkedList<data_type>::getTail()
+Node<data_type> *LinkedList<data_type>::getTail()
 {
 	return TAIL;
 }
 
 template <class data_type>
-Node<data_type>* LinkedList<data_type>::getCurrent()
+Node<data_type> *LinkedList<data_type>::getCurrent()
 {
 	return CURRENT;
 }
 template <class data_type>
-Node<data_type>* LinkedList<data_type>::getNext()
+Node<data_type> *LinkedList<data_type>::getNext()
 {
 	return CURRENT->getNext();
 }
 
 template <class data_type>
-data_type LinkedList<data_type>::getData() const //Using LinkedList::Value_type to reference the valuetype specified in Node
+data_type &LinkedList<data_type>::getData() const //Using LinkedList::Value_type to reference the valuetype specified in Node
 {
-    return data;
+	return data;
 }
 
 template <class data_type>
-void LinkedList<data_type>::setCurrent(Node<data_type>* newCurrent)
+void LinkedList<data_type>::setCurrent(Node<data_type> *newCurrent)
 {
 	CURRENT = newCurrent;
 }
 
 template <class data_type>
-void LinkedList<data_type>::setHead(const data_type& data)
+void LinkedList<data_type>::setHead(const data_type &data)
 {
 	setCurrent(new Node<data_type>(data));
 	CURRENT->setNext(HEAD);
@@ -83,14 +82,14 @@ void LinkedList<data_type>::setHead(const data_type& data)
 }
 
 template <class data_type>
-void LinkedList<data_type>::setTail(Node<data_type>* newTail)
+void LinkedList<data_type>::setTail(Node<data_type> *newTail)
 {
 	TAIL = newTail;
 	TAIL->setNext(NULL);
 }
 
 template <class data_type>
-void LinkedList<data_type>::setData(data_type newData)
+void LinkedList<data_type>::setData(data_type &newData)
 {
 	data = newData;
 }
@@ -119,7 +118,7 @@ int LinkedList<data_type>::getListValue()
 		count += CURRENT->getData().getValue();
 		CURRENT = CURRENT->getNext();
 	}
-	
+
 	if (TAIL != NULL)
 	{
 		count += TAIL->getData().getValue();
@@ -129,76 +128,62 @@ int LinkedList<data_type>::getListValue()
 }
 
 template <class data_type>
-void LinkedList<data_type>::moveToHead(Node<data_type>* newHead)
+void LinkedList<data_type>::moveToHead(Node<data_type> *newHead)
 {
 	HEAD = newHead;
 }
 
-
 //Main functions
 //This is where the main functions of the program are
 
-//Add Function
+//addToTail Function
 //Precondition = Takes input of unchangeable type (value_type). Value_type and Inputstring must be valid
 //PostCondition = This function will convert Input string into cards. Create a seiries of linked Nodes. Then input the cards into the nodes.
 template <class data_type>
-void LinkedList<data_type>::add(const data_type &card)
+void LinkedList<data_type>::addToTail(const data_type &card)
 {
 	if (HEAD == NULL) // If a header has not been created, Create one
 	{
 		setCurrent(new Node<data_type>(card)); // SetCurrent selector to a new Node
-		moveToHead(CURRENT); // Make that Current Node the head 
+		moveToHead(CURRENT);				   // Make that Current Node the head
 	}
-	else 
+	else
 	{
 		setCurrent(TAIL);
-		Node<data_type>* nodeTemp = new Node<data_type>(card); // Create a new Temp Node with the card data
-		CURRENT->setNext(nodeTemp); // Get the previous Current node and set it to next the new Node
-		nodeTemp->setPrev(CURRENT); // Set the previous to the old current Node
-		setCurrent(nodeTemp); // Set the new Node as current
-	} 
-
+		Node<data_type> *nodeTemp = new Node<data_type>(card); // Create a new Temp Node with the card data
+		CURRENT->setNext(nodeTemp);							   // Get the previous Current node and set it to next the new Node
+		nodeTemp->setPrev(CURRENT);							   // Set the previous to the old current Node
+		setCurrent(nodeTemp);								   // Set the new Node as current
+	}
 
 	setTail(CURRENT); // After the while loop, current will be the the last Node.
 }
 
-
 template <class data_type>
 data_type LinkedList<data_type>::removeFromHead()
 {
-	Node<data_type>* tempNode;
-    data_type value;
-    tempNode = HEAD;
-    HEAD = tempNode->getNext();
-    if (HEAD != NULL)
-    {
-        value = tempNode->getData();
-        HEAD->setPrev(NULL);
-    }
-    else
-    {
-        TAIL = NULL;
-    }
-    tempNode = NULL;
-    numberOfNodes--;
-    return value;
+	Node<data_type> *tempNode;
+	data_type value;
+	tempNode = HEAD;
+	HEAD = tempNode->getNext();
+	if (HEAD != NULL)
+	{
+		value = tempNode->getData();
+		HEAD->setPrev(NULL);
+	}
+	else
+	{
+		value = tempNode->getData();
+		TAIL = NULL;
+	}
+	tempNode = NULL;
+	numberOfNodes--;
+	return value;
 }
 
-//Operator Overloading
-//Precondition = Operator needs a valid linked list to output
-//Postcondition = returns the Data from all the nodes, compiled with spaces.
 template <class data_type>
 std::ostream &operator<<(std::ostream &os, const LinkedList<data_type> &ls)
 {
-    os << ls.getData(); // os is an OSTREAM object and ls.getdata get this objects data.
-    return os; // return the object
-}
-
-//Precondition = Inputs a valid linked list
-//Postcondition = appends a linked list to this current linked list. This works by adding the data from foreign linked list to this current object
-template <class data_type>
-LinkedList<data_type> &LinkedList<data_type>::operator+=(const LinkedList<data_type> &ls)
-{
-    add(ls.getData()); // Add this to the current dataset
-    return *this; // Return a pointer to this object
+	os << ls.getData();
+	return os;
 }
