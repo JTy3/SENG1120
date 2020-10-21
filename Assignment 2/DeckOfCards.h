@@ -37,7 +37,7 @@ public:
 	// <-- ACCESSOR METHODS DEFINITION -->
 	// -------------------------------------------------------------------
 	Card draw();
-	Queue<Card> *getdata();
+	string value();
 
 private:
 	Queue<Card> *data;

@@ -69,19 +69,5 @@ const int Queue<data_type>::size()
 	return count;
 }
 
-template <class data_type>
-string Queue<data_type>::countDeck()
-{
-	data->setCurrent(data->getHead());
-	while(data->getCurrent()->getNext() != NULL)
-	{
-		cout << data->getCurrent()->getData();
-		data->setCurrent(data->getCurrent()->getNext());
-	}
-	cout << data->getTail()->getData();
-	string end = "";
-	return end;
-}
-
 
 

@@ -71,33 +71,104 @@ void DeckOfCards::shuffle()
 		i++;
 	}
 
-	int randomNum;
+	int randomNum, randomNum2;
 
 	/* I had to seed the rng otherwise I was getting the same numbers every time it compiled */
 	srand(time(NULL));
 
 	for (int j = 0; j < 100; j++)
 	{
+
 		randomNum = rand() % 4 + 1;
+		randomNum2 = rand() % 4 + 1;
+
 		if ((randomNum == 1))
 		{
-			shuffle_group_2->enqueue(shuffle_group_1->dequeue());
-			shuffle_group_1->enqueue(shuffle_group_2->dequeue());
+			if(randomNum2 == 1)
+			{
+				shuffle_group_1->enqueue(shuffle_group_1->dequeue());
+			}
+			else if(randomNum2 == 2)
+			{
+				shuffle_group_2->enqueue(shuffle_group_1->dequeue());
+				shuffle_group_1->enqueue(shuffle_group_2->dequeue());
+			}
+			else if(randomNum2 == 3)
+			{
+				shuffle_group_3->enqueue(shuffle_group_1->dequeue());
+				shuffle_group_1->enqueue(shuffle_group_3->dequeue());
+			}
+			else
+			{
+				shuffle_group_4->enqueue(shuffle_group_1->dequeue());
+				shuffle_group_1->enqueue(shuffle_group_4->dequeue());
+			}
 		}
 		else if ((randomNum == 2))
 		{
-			shuffle_group_3->enqueue(shuffle_group_2->dequeue());
-			shuffle_group_2->enqueue(shuffle_group_3->dequeue());
+			if(randomNum2 == 1)
+			{
+				shuffle_group_2->enqueue(shuffle_group_2->dequeue());
+			}
+			else if(randomNum2 == 2)
+			{
+				shuffle_group_1->enqueue(shuffle_group_2->dequeue());
+				shuffle_group_2->enqueue(shuffle_group_1->dequeue());
+			}
+			else if(randomNum2 == 3)
+			{
+				shuffle_group_3->enqueue(shuffle_group_2->dequeue());
+				shuffle_group_2->enqueue(shuffle_group_3->dequeue());
+			}
+			else
+			{
+				shuffle_group_4->enqueue(shuffle_group_2->dequeue());
+				shuffle_group_2->enqueue(shuffle_group_4->dequeue());
+			}
 		}
 		else if ((randomNum == 3))
 		{
-			shuffle_group_4->enqueue(shuffle_group_3->dequeue());
-			shuffle_group_3->enqueue(shuffle_group_4->dequeue());
+			if(randomNum2 == 1)
+			{
+				shuffle_group_3->enqueue(shuffle_group_3->dequeue());
+			}
+			else if(randomNum2 == 2)
+			{
+				shuffle_group_1->enqueue(shuffle_group_3->dequeue());
+				shuffle_group_3->enqueue(shuffle_group_1->dequeue());
+			}
+			else if(randomNum2 == 3)
+			{
+				shuffle_group_2->enqueue(shuffle_group_3->dequeue());
+				shuffle_group_3->enqueue(shuffle_group_2->dequeue());
+			}
+			else
+			{
+				shuffle_group_4->enqueue(shuffle_group_3->dequeue());
+				shuffle_group_3->enqueue(shuffle_group_4->dequeue());
+			}
 		}
 		else
 		{
-			shuffle_group_1->enqueue(shuffle_group_4->dequeue());
-			shuffle_group_4->enqueue(shuffle_group_1->dequeue());
+			if(randomNum2 == 1)
+			{
+				shuffle_group_4->enqueue(shuffle_group_4->dequeue());
+			}
+			else if(randomNum2 == 2)
+			{
+				shuffle_group_2->enqueue(shuffle_group_4->dequeue());
+				shuffle_group_4->enqueue(shuffle_group_2->dequeue());
+			}
+			else if(randomNum2 == 3)
+			{
+				shuffle_group_3->enqueue(shuffle_group_4->dequeue());
+				shuffle_group_4->enqueue(shuffle_group_3->dequeue());
+			}
+			else
+			{
+				shuffle_group_1->enqueue(shuffle_group_4->dequeue());
+				shuffle_group_4->enqueue(shuffle_group_1->dequeue());
+			}
 		}
 	}
 
@@ -131,14 +202,23 @@ Card DeckOfCards::draw()
 	return data->dequeue();
 }
 
-// Returns the Queue
-Queue<Card> *DeckOfCards::getdata()
+// Returns a string to print for all cards in the hand
+string DeckOfCards::value()
 {
-	return data;
+	// Count the total value
+	string showDeck = "";
+	// Set temp node to be the head of the list
+	Node<Card> *tempNode = data->front();
+	for (int i = 0; i < data->size(); i++)
+	{
+		showDeck += tempNode->getData().getFace() + " ";
+		tempNode = tempNode->getNext();
+	}
+	return showDeck;
 }
 
 std::ostream &operator<<(std::ostream &strm, DeckOfCards &cards)
 {
-	strm << cards.getdata()->countDeck();
+	strm << cards.value();
 	return strm;
 }
