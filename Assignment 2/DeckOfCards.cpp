@@ -41,7 +41,6 @@ void DeckOfCards::shuffle()
 	Queue<Card> *shuffle_group_4 = new Queue<Card>();
 
 	int i = 0;
-	int count = data->size();
 
 	while (i < 13)
 	{
@@ -66,10 +65,12 @@ void DeckOfCards::shuffle()
 
 	int randomNum;
 
-	for (int j = 0; j < 10; j++)
+	/* I had to seed the rng otherwise I was getting the same numbers every time it compiled */
+	srand(time(NULL));
+
+	for (int j = 0; j < 100; j++)
 	{
 		randomNum = rand() % 4 + 1;
-		cout << randomNum << endl;
 		if ((randomNum == 1))
 		{
 			shuffle_group_2->enqueue(shuffle_group_1->dequeue());

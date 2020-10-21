@@ -19,14 +19,14 @@ public:
 
     int countAll();
 
-    Queue<Card> *value();
+    string value();
 
     void faceUp();
 
     void add(Card card, const bool faceUp);
 
 private:
-	Queue<Card> *hand;
+	Queue<Card> hand;
 };
 
 std::ostream &operator<<(std::ostream &strm, HandOfCards &cards);

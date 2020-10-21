@@ -20,8 +20,7 @@ template <class data_type>
 void Queue<data_type>::enqueue(const data_type& card) 
 {
 	++count;
-	//Create a node first with data as card
-	data->add(card); //Might cause problem with adding a new head
+	data->add(card);
 }
 
 template <class data_type>
@@ -65,6 +64,7 @@ string Queue<data_type>::countDeck()
 		cout << data->getCurrent()->getData();
 		data->setCurrent(data->getCurrent()->getNext());
 	}
+	cout << data->getTail()->getData();
 	string end = "";
 	return end;
 }

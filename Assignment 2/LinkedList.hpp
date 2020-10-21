@@ -114,7 +114,7 @@ int LinkedList<data_type>::getListValue()
 {
 	int count = 0;
 	setCurrent(HEAD);
-	while (CURRENT != NULL)
+	while (CURRENT->getNext() != NULL)
 	{
 		count += CURRENT->getData().getValue();
 		CURRENT = CURRENT->getNext();
@@ -140,19 +140,19 @@ void LinkedList<data_type>::moveToHead(Node<data_type>* newHead)
 
 //Add Function
 //Precondition = Takes input of unchangeable type (value_type). Value_type and Inputstring must be valid
-//PostCondition = This function will convert Input string into words. Create a seiries of linked Nodes. Then input the words into the nodes.
+//PostCondition = This function will convert Input string into cards. Create a seiries of linked Nodes. Then input the cards into the nodes.
 template <class data_type>
-void LinkedList<data_type>::add(const data_type &word)
+void LinkedList<data_type>::add(const data_type &card)
 {
 	if (HEAD == NULL) // If a header has not been created, Create one
 	{
-		setCurrent(new Node<data_type>(word)); // SetCurrent selector to a new Node
+		setCurrent(new Node<data_type>(card)); // SetCurrent selector to a new Node
 		moveToHead(CURRENT); // Make that Current Node the head 
 	}
 	else 
 	{
 		setCurrent(TAIL);
-		Node<data_type>* nodeTemp = new Node<data_type>(word); // Create a new Temp Node with the word data
+		Node<data_type>* nodeTemp = new Node<data_type>(card); // Create a new Temp Node with the card data
 		CURRENT->setNext(nodeTemp); // Get the previous Current node and set it to next the new Node
 		nodeTemp->setPrev(CURRENT); // Set the previous to the old current Node
 		setCurrent(nodeTemp); // Set the new Node as current
